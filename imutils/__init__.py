@@ -1,34 +1,32 @@
 # author:	Adrian Rosebrock
 # website:	http://www.pyimagesearch.com
 
-PEP8
-
 # import the necessary packages
 import numpy as np
 import cv2
 
 def translate(image, x, y):
-	# Define the translation matrix and perform the translation
+	# define the translation matrix and perform the translation
 	M = np.float32([[1, 0, x], [0, 1, y]])
 	shifted = cv2.warpAffine(image, M, (image.shape[1], image.shape[0]))
 
-	# Return the translated image
+	# return the translated image
 	return shifted
 
 def rotate(image, angle, center=None, scale=1.0):
-	# Grab the dimensions of the image
+	# grab the dimensions of the image
 	(h, w) = image.shape[:2]
 
-	# If the center is None, initialize it as the center of
+	# if the center is None, initialize it as the center of
 	# the image
 	if center is None:
 		center = (w / 2, h / 2)
 
-	# Perform the rotation
+	# perform the rotation
 	M = cv2.getRotationMatrix2D(center, angle, scale)
 	rotated = cv2.warpAffine(image, M, (w, h))
 
-	# Return the rotated image
+	# return the rotated image
 	return rotated
 
 def resize(image, width=None, height=None, inter=cv2.INTER_AREA):
@@ -57,7 +55,7 @@ def resize(image, width=None, height=None, inter=cv2.INTER_AREA):
 		dim = (width, int(h * r))
 
 	# resize the image
-	resized = cv2.resize(image, dim, interpolation = inter)
+	resized = cv2.resize(image, dim, interpolation=inter)
 
 	# return the resized image
 	return resized
