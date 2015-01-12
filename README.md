@@ -10,7 +10,7 @@ Translation is the shifting of an image in either the *x* or *y* direction. To t
 
 ![Translation equation](docs/images/translation_eq.png?raw=true)
 
-And from there, you woud need to apply the `cv2.warpAffine` function.
+And from there, you would need to apply the `cv2.warpAffine` function.
 
 Instead of manually constructing the translation matrix *M* and calling `cv2.warpAffine`, you can simply make a call to the `translate` function of `imutils`.
 
