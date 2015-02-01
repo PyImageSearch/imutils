@@ -3,7 +3,7 @@ A series of convenience functions to make basic image processing functions such 
 
 For more information, along with a detailed code review check out the following posts on the [PyImageSearch.com](http://www.pyimagesearch.com) blog:
 
-- *Links to be added soon*
+- [http://www.pyimagesearch.com/2015/02/02/just-open-sourced-personal-imutils-package-series-opencv-convenience-functions/](http://www.pyimagesearch.com/2015/02/02/just-open-sourced-personal-imutils-package-series-opencv-convenience-functions/)
 
 ## Translation
 Translation is the shifting of an image in either the *x* or *y* direction. To translate an image in OpenCV you would need to supply the *(x, y)*-shift, denoted as *(t<sub>x</sub>, t<sub>y</sub>)* to construct the translation matrix *M*:
