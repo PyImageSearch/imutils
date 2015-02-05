@@ -66,7 +66,7 @@ cv2.imshow("Skeleton", skeleton)</pre>
 <img src="docs/images/skeletonization.png?raw=true" alt="Skeletonization example"/ style="max-width: 500px;">
 
 ## Displaying with Matplotlib
-In the Python bindings of OpenCV, images are represented as NumPy arrays in BGR order. This works fine when using the `cv2.imshow` function. However, if you intend on using Matplotlib, the `plt.imshow` function assumes the image is in RGB order. A simple call to `cv2.cvtColor` will resolve this problem, or you can use the `opencv2matplotlib` conveince function.
+In the Python bindings of OpenCV, images are represented as NumPy arrays in BGR order. This works fine when using the `cv2.imshow` function. However, if you intend on using Matplotlib, the `plt.imshow` function assumes the image is in RGB order. A simple call to `cv2.cvtColor` will resolve this problem, or you can use the `opencv2matplotlib` convenience function.
 
 #### Example:
 <pre># INCORRECT: show the image without converting color spaces
