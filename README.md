@@ -4,6 +4,9 @@ A series of convenience functions to make basic image processing functions such 
 For more information, along with a detailed code review check out the following posts on the [PyImageSearch.com](http://www.pyimagesearch.com) blog:
 
 - [http://www.pyimagesearch.com/2015/02/02/just-open-sourced-personal-imutils-package-series-opencv-convenience-functions/](http://www.pyimagesearch.com/2015/02/02/just-open-sourced-personal-imutils-package-series-opencv-convenience-functions/)
+- [http://www.pyimagesearch.com/2015/03/02/convert-url-to-image-with-python-and-opencv/](http://www.pyimagesearch.com/2015/03/02/convert-url-to-image-with-python-and-opencv/)
+- [http://www.pyimagesearch.com/2015/04/06/zero-parameter-automatic-canny-edge-detection-with-python-and-opencv/](http://www.pyimagesearch.com/2015/04/06/zero-parameter-automatic-canny-edge-detection-with-python-and-opencv/)
+- [http://www.pyimagesearch.com/2014/09/01/build-kick-ass-mobile-document-scanner-just-5-minutes/](http://www.pyimagesearch.com/2014/09/01/build-kick-ass-mobile-document-scanner-just-5-minutes/)
 
 ## Translation
 Translation is the shifting of an image in either the *x* or *y* direction. To translate an image in OpenCV you would need to supply the *(x, y)*-shift, denoted as *(t<sub>x</sub>, t<sub>y</sub>)* to construct the translation matrix *M*:
@@ -50,7 +53,7 @@ for width in (400, 300, 200, 100):
 <img src="docs/images/resizing.png?raw=true" alt="Resizing example"/ style="max-width: 500px;">
 
 ## Skeletonization
-Skeletonization is the process of constructing the "topological skeleton" of an object in an image, where the object is presumed to be white on a black background. OpenCV does not provide a function to explicity construct the skeleton, but does provide the morphological and binary functions to do so.
+Skeletonization is the process of constructing the "topological skeleton" of an object in an image, where the object is presumed to be white on a black background. OpenCV does not provide a function to explicitly construct the skeleton, but does provide the morphological and binary functions to do so.
 
 For convenience, the `skeletonize` function of `imutils` can be used to construct the topological skeleton of the image.
 
@@ -80,3 +83,45 @@ plt.show()</pre>
 
 #### Output:
 <img src="docs/images/matplotlib.png?raw=true" alt="Matplotlib example"/ style="max-width: 500px;">
+
+## URL to Image
+This the `url_to_image` function accepts a single parameter: the `url` of the image we want to download and convert to a NumPy array in OpenCV format. This function performs the download in-memory. The `url_to_image` function has been detailed [here](http://www.pyimagesearch.com/2015/03/02/convert-url-to-image-with-python-and-opencv/) on the PyImageSearch blog.
+
+#### Example:
+<pre>url = "http://pyimagesearch.com/static/pyimagesearch_logo_github.png"
+logo = imutils.url_to_image(url)
+cv2.imshow("URL to Image", logo)
+cv2.waitKey(0)</pre>
+
+#### Output:
+<img src="docs/images/url_to_image.png?raw=true" alt="Matplotlib example"/ style="max-width: 500px;">
+
+## Automatic Canny Edge Detection
+The Canny edge detector requires two parameters when performing hysteresis. However, tuning these two parameters to obtain an optimal edge map is non-trivial, especially when working with a dataset of images. Instead, we can use the `auto_canny` function which uses the median of the grayscale pixel intensities to derive the upper and lower thresholds. You can read more about the `auto_canny` function [here](http://www.pyimagesearch.com/2015/04/06/zero-parameter-automatic-canny-edge-detection-with-python-and-opencv/).
+
+#### Example:
+<pre>gray = cv2.cvtColor(logo, cv2.COLOR_BGR2GRAY)
+edgeMap = imutils.auto_canny(gray)
+cv2.imshow("Original", logo)
+cv2.imshow("Automatic Edge Map", edgeMap)</pre>
+
+#### Output:
+<img src="docs/images/auto_canny.png?raw=true" alt="Matplotlib example"/ style="max-width: 500px;">
+
+## 4-point Perspective Transform
+A common task in computer vision and image processing is to perform a 4-point perspective transform of a ROI in an image and obtain a top-down, "birds eye view" of the ROI. The `perspective` module takes care of this for you. A real-world example of applying a 4-point perspective transform can be bound in this blog on on [building a kick-ass mobile document scanner](http://www.pyimagesearch.com/2014/09/01/build-kick-ass-mobile-document-scanner-just-5-minutes/).
+
+#### Example
+See the contents of `demos/perspective_transform.py`
+
+#### Output:
+<img src="docs/images/perspective_transform.png?raw=true" alt="Matplotlib example"/ style="max-width: 500px;">
+
+## Sorting Contours
+The contours returned from `cv2.findContours` are unsorted. By using the `contours` module the the `sort_contours` function we can sort a list of contours from left-to-right, right-to-left, top-to-bottom, and bottom-to-top, respectively.
+
+#### Example:
+See the contents of `demos/sorting_contours.py`
+
+#### Output:
+<img src="docs/images/sorting_contours.png?raw=true" alt="Matplotlib example"/ style="max-width: 500px;">

@@ -2,7 +2,8 @@
 # website:	http://www.pyimagesearch.com
 
 # USAGE
-# python demo.py
+# BE SURE TO INSTALL 'imutils' PRIOR TO EXECUTING THIS COMMAND
+# python image_basics.py
 
 # import the necessary packages
 import matplotlib.pyplot as plt
@@ -10,10 +11,10 @@ import imutils
 import cv2
 
 # load the example images
-bridge = cv2.imread("demo_images/bridge.jpg")
-cactus = cv2.imread("demo_images/cactus.jpg")
-logo = cv2.imread("demo_images/pyimagesearch_logo.jpg")
-workspace = cv2.imread("demo_images/workspace.jpg")
+bridge = cv2.imread("../demo_images/bridge.jpg")
+cactus = cv2.imread("../demo_images/cactus.jpg")
+logo = cv2.imread("../demo_images/pyimagesearch_logo.jpg")
+workspace = cv2.imread("../demo_images/workspace.jpg")
 
 # 1. TRANSLATION
 # show the original image
@@ -70,3 +71,20 @@ plt.imshow(cactus)
 plt.figure("Correct")
 plt.imshow(imutils.opencv2matplotlib(cactus))
 plt.show()
+
+# 6. URL TO IMAGE
+# load an image from a URL, convert it to OpenCV, format, and
+# display it
+url = "http://pyimagesearch.com/static/pyimagesearch_logo_github.png"
+logo = imutils.url_to_image(url)
+cv2.imshow("URL to Image", logo)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+
+# 7. AUTO CANNY
+# convert the logo to grayscale and automatically detect edges
+gray = cv2.cvtColor(logo, cv2.COLOR_BGR2GRAY)
+edgeMap = imutils.auto_canny(gray)
+cv2.imshow("Original", logo)
+cv2.imshow("Automatic Edge Map", edgeMap)
+cv2.waitKey(0)
