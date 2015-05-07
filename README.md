@@ -130,3 +130,21 @@ See the contents of `demos/sorting_contours.py`
 
 #### Output:
 <img src="docs/images/sorting_contours.png?raw=true" alt="Matplotlib example"/ style="max-width: 500px;">
+
+## (Recursively) Listing Paths to Images
+The `paths` sub-module of `imutils` includes a function to recursively find images based on a root directory.
+
+#### Example:
+Assuming we are in the `demos` directory, let's list the contents of the `../demo_images`:
+
+<pre>from imutils import paths
+for imagePath in paths.list_images("../demo_images"):
+	print imagePath</pre>
+
+#### Output:
+<pre>../demo_images/bridge.jpg
+../demo_images/cactus.jpg
+../demo_images/notecard.png
+../demo_images/pyimagesearch_logo.jpg
+../demo_images/shapes.png
+../demo_images/workspace.jpg</pre>
