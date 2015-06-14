@@ -18,7 +18,7 @@ pts = np.array([(73, 239), (356, 117), (475, 265), (187, 443)])
 
 # loop over the points and draw them on the cloned image
 for (x, y) in pts:
-	cv2.circle(clone, (x, y), 5, (0, 255, 0), -1)
+    cv2.circle(clone, (x, y), 5, (0, 255, 0), -1)
 
 # apply the four point tranform to obtain a "birds eye view" of
 # the notecard
