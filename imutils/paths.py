@@ -16,7 +16,7 @@ def list_files(basePath, validExts=(".jpg", ".jpeg", ".png"), contains=None):
 				continue
 
 			# determine the file extension of the current file
-			ext = filename[filename.rfind("."):]
+			ext = filename[filename.rfind("."):].lower()
 
 			# check to see if the file is an image and should be processed
 			if ext.endswith(validExts):
