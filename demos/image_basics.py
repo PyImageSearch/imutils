@@ -1,5 +1,5 @@
-# author:	Adrian Rosebrock
-# website:	http://www.pyimagesearch.com
+# author:    Adrian Rosebrock
+# website:   http://www.pyimagesearch.com
 
 # USAGE
 # BE SURE TO INSTALL 'imutils' PRIOR TO EXECUTING THIS COMMAND
@@ -34,9 +34,9 @@ cv2.destroyAllWindows()
 # 2. ROTATION
 # loop over the angles to rotate the image
 for angle in xrange(0, 360, 90):
-	# rotate the image and display it
-	rotated = imutils.rotate(bridge, angle=angle)
-	cv2.imshow("Angle=%d" % (angle), rotated)
+    # rotate the image and display it
+    rotated = imutils.rotate(bridge, angle=angle)
+    cv2.imshow("Angle=%d" % (angle), rotated)
 
 # wait for a keypress, then close all the windows
 cv2.waitKey(0)
@@ -45,9 +45,9 @@ cv2.destroyAllWindows()
 # 3. RESIZING
 # loop over varying widths to resize the image to
 for width in (400, 300, 200, 100):
-	# resize the image and display it
-	resized = imutils.resize(workspace, width=width)
-	cv2.imshow("Width=%dpx" % (width), resized)
+    # resize the image and display it
+    resized = imutils.resize(workspace, width=width)
+    cv2.imshow("Width=%dpx" % (width), resized)
 
 # wait for a keypress, then close all the windows
 cv2.waitKey(0)
