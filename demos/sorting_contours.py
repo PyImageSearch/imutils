@@ -17,9 +17,15 @@ orig = image.copy()
 gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 edged = imutils.auto_canny(gray)
 
-# find contours in the edge map
-(cnts, _) = cv2.findContours(edged.copy(), cv2.RETR_EXTERNAL,
-    cv2.CHAIN_APPROX_SIMPLE)
+# find contours in the edge map using OpenCV 2.4.X
+if imutils.is_cv2():
+    (cnts, _) = cv2.findContours(edged.copy(), cv2.RETR_EXTERNAL,
+        cv2.CHAIN_APPROX_SIMPLE)
+
+# find contours in the edge map using OpenCV 3
+elif imutils.is_cv3():
+    (_, cnts, _) = cv2.findContours(edged.copy(), cv2.RETR_EXTERNAL,
+        cv2.CHAIN_APPROX_SIMPLE)
 
 # loop over the (unsorted) contours and label them
 for (i, c) in enumerate(cnts):
