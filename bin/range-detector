@@ -1,0 +1,124 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+# USAGE: You need to specify a filter and "only one" image source
+#
+# (python) range-detector --filter RGB --image /path/to/image.png
+# or
+# (python) range-detector --filter HSV --webcam
+
+import cv2
+import argparse
+from operator import xor
+
+
+def callback(value):
+    pass
+
+
+def setup_trackbars(range_filter):
+    cv2.namedWindow("Trackbars", 0)
+
+    if range_filter == 'RGB':
+        v1_min = 'R_MIN'
+        v2_min = 'G_MIN'
+        v3_min = 'B_MIN'
+        v1_max = 'R_MAX'
+        v2_max = 'G_MAX'
+        v3_max = 'B_MAX'
+    else:
+        v1_min = 'H_MIN'
+        v2_min = 'S_MIN'
+        v3_min = 'V_MIN'
+        v1_max = 'H_MAX'
+        v2_max = 'S_MAX'
+        v3_max = 'V_MAX'
+
+    cv2.createTrackbar(v1_min, "Trackbars", 0, 255, callback)
+    cv2.createTrackbar(v2_min, "Trackbars", 0, 255, callback)
+    cv2.createTrackbar(v3_min, "Trackbars", 0, 255, callback)
+    cv2.createTrackbar(v1_max, "Trackbars", 255, 255, callback)
+    cv2.createTrackbar(v2_max, "Trackbars", 255, 255, callback)
+    cv2.createTrackbar(v3_max, "Trackbars", 255, 255, callback)
+
+
+def get_arguments():
+    ap = argparse.ArgumentParser()
+    ap.add_argument('-f', '--filter', required=True,
+                    help='Range filter. RGB or HSV')
+    ap.add_argument('-i', '--image', required=False,
+                    help='Path to the image')
+    ap.add_argument('-w', '--webcam', required=False,
+                    help='Use webcam', action='store_true')
+    args = vars(ap.parse_args())
+
+    if not xor(bool(args['image']), bool(args['webcam'])):
+        ap.error("Please specify only one image source")
+
+    if not args['filter'].upper() in ['RGB', 'HSV']:
+        ap.error("Please speciy a correct filter.")
+
+    return args
+
+
+def get_trackbar_values(range_filter):
+    if range_filter == 'RGB':
+        v1_min = cv2.getTrackbarPos("R_MIN", "Trackbars")
+        v2_min = cv2.getTrackbarPos("G_MIN", "Trackbars")
+        v3_min = cv2.getTrackbarPos("B_MIN", "Trackbars")
+        v1_max = cv2.getTrackbarPos("R_MAX", "Trackbars")
+        v2_max = cv2.getTrackbarPos("G_MAX", "Trackbars")
+        v3_max = cv2.getTrackbarPos("B_MAX", "Trackbars")
+    else:
+        v1_min = cv2.getTrackbarPos("H_MIN", "Trackbars")
+        v2_min = cv2.getTrackbarPos("S_MIN", "Trackbars")
+        v3_min = cv2.getTrackbarPos("V_MIN", "Trackbars")
+        v1_max = cv2.getTrackbarPos("H_MAX", "Trackbars")
+        v2_max = cv2.getTrackbarPos("S_MAX", "Trackbars")
+        v3_max = cv2.getTrackbarPos("V_MAX", "Trackbars")
+
+    return v1_min, v2_min, v3_min, v1_max, v2_max, v3_max
+
+
+def main():
+    args = get_arguments()
+
+    range_filter = args['filter'].upper()
+
+    if args['image']:
+        image = cv2.imread(args['image'])
+
+        if range_filter == 'RGB':
+            frame_to_thresh = image.copy()
+        else:
+            frame_to_thresh = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
+    else:
+        camera = cv2.VideoCapture(0)
+
+    setup_trackbars(range_filter)
+
+    while True:
+        if args['webcam']:
+            ret, image = camera.read()
+
+            if not ret:
+                break
+
+            if range_filter == 'RGB':
+                frame_to_thresh = image.copy()
+            else:
+                frame_to_thresh = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
+
+        v1_min, v2_min, v3_min, v1_max, v2_max, v3_max = get_trackbar_values(range_filter)
+
+        thresh = cv2.inRange(frame_to_thresh, (v1_min, v2_min, v3_min), (v1_max, v2_max, v3_max))
+
+        cv2.imshow("Original", image)
+        cv2.imshow("Thresh", thresh)
+
+        if cv2.waitKey(1) & 0xFF is ord('q'):
+            break
+
+
+if __name__ == '__main__':
+    main()
