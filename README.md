@@ -7,6 +7,7 @@ For more information, along with a detailed code review check out the following 
 - [http://www.pyimagesearch.com/2015/03/02/convert-url-to-image-with-python-and-opencv/](http://www.pyimagesearch.com/2015/03/02/convert-url-to-image-with-python-and-opencv/)
 - [http://www.pyimagesearch.com/2015/04/06/zero-parameter-automatic-canny-edge-detection-with-python-and-opencv/](http://www.pyimagesearch.com/2015/04/06/zero-parameter-automatic-canny-edge-detection-with-python-and-opencv/)
 - [http://www.pyimagesearch.com/2014/09/01/build-kick-ass-mobile-document-scanner-just-5-minutes/](http://www.pyimagesearch.com/2014/09/01/build-kick-ass-mobile-document-scanner-just-5-minutes/)
+- [http://www.pyimagesearch.com/2015/08/10/checking-your-opencv-version-using-python/](http://www.pyimagesearch.com/2015/08/10/checking-your-opencv-version-using-python/)
 
 ## Installation
 Provided you already have NumPy, Matplotlib, and OpenCV already installed, the `imutils` package is completely `pip`-installable:
