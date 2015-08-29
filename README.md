@@ -14,6 +14,24 @@ Provided you already have NumPy, Matplotlib, and OpenCV already installed, the `
 
 <pre>$ pip install imutils</pre>
 
+## Finding function OpenCV functions by name
+OpenCV can be a big, hard to navigate library, especially if you are just getting started learning computer vision and image processing. The `find_function` method allows you to quickly search function names across modules (and optionally sub-modules) to find the function you are looking for.
+
+#### Example:
+Let's find all function names that contain the text `contour`:
+
+<pre>import imutils
+imutils.find_function("contour")</pre>
+
+#### Output:
+<pre>1. contourArea
+2. drawContours
+3. findContours
+4. isContourConvex</pre>
+
+The `contourArea` function could therefore be accessed via: `cv2.findContours`
+
+
 ## Translation
 Translation is the shifting of an image in either the *x* or *y* direction. To translate an image in OpenCV you would need to supply the *(x, y)*-shift, denoted as *(t<sub>x</sub>, t<sub>y</sub>)* to construct the translation matrix *M*:
 

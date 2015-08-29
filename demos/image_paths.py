@@ -1,3 +1,6 @@
+# author:    Adrian Rosebrock
+# website:   http://www.pyimagesearch.com
+
 # import the necessary packages
 from __future__ import print_function
 from imutils import paths
