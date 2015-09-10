@@ -33,7 +33,7 @@ cv2.destroyAllWindows()
 
 # 2. ROTATION
 # loop over the angles to rotate the image
-for angle in xrange(0, 360, 90):
+for angle in range(0, 360, 90):
     # rotate the image and display it
     rotated = imutils.rotate(bridge, angle=angle)
     cv2.imshow("Angle=%d" % (angle), rotated)

@@ -3,8 +3,16 @@
 
 # import the necessary packages
 import numpy as np
-import urllib
 import cv2
+import sys
+
+# import any special Python 2.7 packages
+if sys.version_info.major == 2:
+    from urllib import urlopen
+
+# import any special Python 3 packages
+elif sys.version_info.major == 3:
+    from urllib.request import urlopen
 
 def translate(image, x, y):
     # define the translation matrix and perform the translation
@@ -100,7 +108,7 @@ def opencv2matplotlib(image):
 def url_to_image(url, readFlag=cv2.IMREAD_COLOR):
     # download the image, convert it to a NumPy array, and then read
     # it into OpenCV format
-    resp = urllib.urlopen(url)
+    resp = urlopen(url)
     image = np.asarray(bytearray(resp.read()), dtype="uint8")
     image = cv2.imdecode(image, readFlag)
 
