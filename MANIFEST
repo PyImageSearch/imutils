@@ -5,6 +5,7 @@ bin/range-detector
 imutils/__init__.py
 imutils/contours.py
 imutils/convenience.py
+imutils/encodings.py
 imutils/meta.py
 imutils/paths.py
 imutils/perspective.py
