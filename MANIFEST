@@ -7,5 +7,6 @@ imutils/contours.py
 imutils/convenience.py
 imutils/encodings.py
 imutils/meta.py
+imutils/object_detection.py
 imutils/paths.py
 imutils/perspective.py
