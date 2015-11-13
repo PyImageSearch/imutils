@@ -29,7 +29,7 @@ imutils.find_function("contour")</pre>
 3. findContours
 4. isContourConvex</pre>
 
-The `contourArea` function could therefore be accessed via: `cv2.findContours`
+The `contourArea` function could therefore be accessed via: `cv2.contourArea`
 
 
 ## Translation
