@@ -2,8 +2,8 @@ from distutils.core import setup
 
 setup(
     name='imutils',
-    packages=['imutils'],
-    version='0.3.2',
+    packages=['imutils', 'imutils.video'],
+    version='0.3.3',
     description='A series of convenience functions to make basic image processing functions such as translation, rotation, resizing, skeletonization, displaying Matplotlib images, sorting contours, detecting edges, and much more easier with OpenCV and both Python 2.7 and Python 3.',
     author='Adrian Rosebrock',
     author_email='adrian@pyimagesearch.com',
