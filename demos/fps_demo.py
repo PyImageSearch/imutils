@@ -51,7 +51,8 @@ print("[INFO] approx. FPS: {:.2f}".format(fps.fps()))
 stream.release()
 cv2.destroyAllWindows()
 
-# created a *threaded *video stream and start the FPS counter
+# created a *threaded *video stream, allow the camera senor to warmup,
+# and start the FPS counter
 print("[INFO] sampling THREADED frames from webcam...")
 vs = VideoStream(src=0).start()
 fps = FPS().start()
@@ -60,7 +61,7 @@ fps = FPS().start()
 while fps._numFrames < args["num_frames"]:
 	# grab the frame from the threaded video stream and resize it
 	# to have a maximum width of 400 pixels
-	(grabbed, frame) = vs.read()
+	frame = vs.read()
 	frame = imutils.resize(frame, width=400)
 
 	# check to see if the frame should be displayed to our screen

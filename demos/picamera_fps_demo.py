@@ -8,7 +8,7 @@
 
 # import the necessary packages
 from __future__ import print_function
-from imutils.video import PiVideoStream
+from imutils.video import VideoStream
 from imutils.video import FPS
 from picamera.array import PiRGBArray
 from picamera import PiCamera
@@ -73,7 +73,7 @@ camera.close()
 # created a *threaded *video stream, allow the camera sensor to warmup,
 # and start the FPS counter
 print("[INFO] sampling THREADED frames from `picamera` module...")
-vs = PiVideoStream().start()
+vs = VideoStream(usePiCamera=True).start()
 time.sleep(2.0)
 fps = FPS().start()
 
