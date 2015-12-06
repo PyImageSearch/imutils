@@ -15,7 +15,7 @@ class PiVideoStream:
 			format="bgr", use_video_port=True)
 
 		# initialize the frame and the variable used to indicate
-		# if the thread should
+		# if the thread should be stopped
 		self.frame = None
 		self.stopped = False
 
