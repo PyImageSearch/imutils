@@ -10,6 +10,8 @@ imutils/meta.py
 imutils/object_detection.py
 imutils/paths.py
 imutils/perspective.py
+imutils/io/__init__.py
+imutils/io/tempfile.py
 imutils/video/__init__.py
 imutils/video/fps.py
 imutils/video/pivideostream.py

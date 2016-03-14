@@ -10,7 +10,7 @@ For more information, along with a detailed code review check out the following 
 - [http://www.pyimagesearch.com/2015/08/10/checking-your-opencv-version-using-python/](http://www.pyimagesearch.com/2015/08/10/checking-your-opencv-version-using-python/)
 
 ## Installation
-Provided you already have NumPy, Matplotlib, and OpenCV already installed, the `imutils` package is completely `pip`-installable:
+Provided you already have NumPy, SciPy, Matplotlib, and OpenCV already installed, the `imutils` package is completely `pip`-installable:
 
 <pre>$ pip install imutils</pre>
 
