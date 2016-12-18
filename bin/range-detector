@@ -34,6 +34,9 @@ def get_arguments():
                     help='Path to the image')
     ap.add_argument('-w', '--webcam', required=False,
                     help='Use webcam', action='store_true')
+    ap.add_argument('-p', '--preview', required=False,
+                    help='Show a preview of the image after applying the mask',
+                    action='store_true')
     args = vars(ap.parse_args())
 
     if not xor(bool(args['image']), bool(args['webcam'])):
@@ -89,8 +92,12 @@ def main():
 
         thresh = cv2.inRange(frame_to_thresh, (v1_min, v2_min, v3_min), (v1_max, v2_max, v3_max))
 
-        cv2.imshow("Original", image)
-        cv2.imshow("Thresh", thresh)
+        if args['preview']:
+            preview = cv2.bitwise_and(image, image, mask=thresh)
+            cv2.imshow("Preview", preview)
+        else:
+            cv2.imshow("Original", image)
+            cv2.imshow("Thresh", thresh)
 
         if cv2.waitKey(1) & 0xFF is ord('q'):
             break
