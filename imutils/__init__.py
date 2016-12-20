@@ -4,6 +4,7 @@
 # import the necessary packages
 from .convenience import translate
 from .convenience import rotate
+from .convenience import rotate_bound
 from .convenience import resize
 from .convenience import skeletonize
 from .convenience import opencv2matplotlib
