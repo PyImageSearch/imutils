@@ -14,6 +14,7 @@ imutils/io/__init__.py
 imutils/io/tempfile.py
 imutils/video/__init__.py
 imutils/video/count_frames.py
+imutils/video/filevideostream.py
 imutils/video/fps.py
 imutils/video/pivideostream.py
 imutils/video/videostream.py
