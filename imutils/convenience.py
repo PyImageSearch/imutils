@@ -169,3 +169,7 @@ def check_opencv_version(major, lib=None):
     # return whether or not the current OpenCV version matches the
     # major version number
     return lib.__version__.startswith(major)
+
+def corners_to_keypoints(corners):
+    """function to take the corners from cv2.GoodFeaturesToTrack and return cv2.KeyPoints"""
+    return [cv2.KeyPoint(kp[0][0], kp[0][1], 1) for kp in corners]
