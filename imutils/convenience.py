@@ -184,8 +184,8 @@ def make_grids_of_images(image_list, image_shape, grid_shape):
     Empty space of incomplete grid images are filled with black pixels
     ---------------------------------------------------------------------------------------------
     :param image_list: python list of input images
-    :param image_shape: tuple, size each image will be resized to for display
-    :param grid_shape: tuple, shape of image grid (rows, cols)
+    :param image_shape: tuple, size each image will be resized to for display (width, height)
+    :param grid_shape: tuple, shape of image grid (width, height)
     :return: list of grid images in numpy array format
     ---------------------------------------------------------------------------------------------
 
@@ -193,8 +193,8 @@ def make_grids_of_images(image_list, image_shape, grid_shape):
 
     # load single image
     img = cv2.imread('lena.jpg')
-    # duplicate image 50 times
-    num_imgs = 50
+    # duplicate image 25 times
+    num_imgs = 25
     img_list = []
     for i in xrange(num_imgs):
         img_list.append(img)
@@ -238,4 +238,5 @@ def make_grids_of_images(image_list, image_shape, grid_shape):
     if start_new_img is False:
         image_grids.append(grid_image)  # add unfinished grid
     return image_grids
+
 
