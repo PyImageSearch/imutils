@@ -173,3 +173,70 @@ def check_opencv_version(major, lib=None):
 def corners_to_keypoints(corners):
     """function to take the corners from cv2.GoodFeaturesToTrack and return cv2.KeyPoints"""
     return [cv2.KeyPoint(kp[0][0], kp[0][1], 1) for kp in corners]
+
+def build_mosaics(image_list, image_shape, mosaic_shape):
+    """
+    ---------------------------------------------------------------------------------------------
+    author: Kyle Hounslow
+    ---------------------------------------------------------------------------------------------
+    Converts a list of single images into a list of 'mosaic' images of specified rows and columns.
+    A new mosaic image is started once rows and columns of mosaic image is filled.
+    Empty space of incomplete mosaic images are filled with black pixels
+    ---------------------------------------------------------------------------------------------
+    :param image_list: python list of input images
+    :param image_shape: tuple, size each image will be resized to for display (width, height)
+    :param mosaic_shape: tuple, shape of image mosaic (width, height)
+    :return: list of mosaic images in numpy array format
+    ---------------------------------------------------------------------------------------------
+
+    example usage:
+
+    # load single image
+    img = cv2.imread('lena.jpg')
+    # duplicate image 25 times
+    num_imgs = 25
+    img_list = []
+    for i in xrange(num_imgs):
+        img_list.append(img)
+    # convert image list into a mosaic of 256x256 images tiled in a 5x5 mosaic
+    mosaics = make_mosaics_of_images(img_list, (256, 256), (5, 5))
+    # iterate through mosaics and display
+    for mosaic in mosaics:
+        cv2.imshow('mosaic image', mosaic)
+        cv2.waitKey(0)
+
+    ----------------------------------------------------------------------------------------------
+    """
+    if len(image_shape) != 2:
+        raise Exception('image shape must be list or tuple of length 2 (rows, cols)')
+    if len(mosaic_shape) != 2:
+        raise Exception('mosaic shape must be list or tuple of length 2 (rows, cols)')
+    image_mosaics = []
+    # start with black canvas to draw images onto
+    mosaic_image = np.zeros(shape=(image_shape[1] * (mosaic_shape[1]), image_shape[0] * mosaic_shape[0], 3),
+                          dtype=np.uint8)
+    cursor_pos = [0, 0]
+    start_new_img = False
+    for img in image_list:
+        if type(img).__module__ != np.__name__:
+            raise Exception('input of type {} is not a valid numpy array'.format(type(img)))
+        start_new_img = False
+        img = cv2.resize(img, image_shape)
+        # draw image to black canvas
+        mosaic_image[cursor_pos[1]:cursor_pos[1] + image_shape[1], cursor_pos[0]:cursor_pos[0] + image_shape[0]] = img
+        cursor_pos[0] += image_shape[0]  # increment cursor x position
+        if cursor_pos[0] >= mosaic_shape[0] * image_shape[0]:
+            cursor_pos[1] += image_shape[1]  # increment cursor y position
+            cursor_pos[0] = 0
+            if cursor_pos[1] >= mosaic_shape[1] * image_shape[1]:
+                cursor_pos = [0, 0]
+                image_mosaics.append(mosaic_image)
+                # reset black canvas
+                mosaic_image = np.zeros(shape=(image_shape[1] * (mosaic_shape[1]), image_shape[0] * mosaic_shape[0], 3),
+                                      dtype=np.uint8)
+                start_new_img = True
+    if start_new_img is False:
+        image_mosaics.append(mosaic_image)  # add unfinished mosaic
+    return image_mosaics
+
+
