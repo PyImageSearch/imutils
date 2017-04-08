@@ -170,19 +170,19 @@ def check_opencv_version(major, lib=None):
     # major version number
     return lib.__version__.startswith(major)
 
-def build_mosaics(image_list, image_shape, mosaic_shape):
+def build_montages(image_list, image_shape, montage_shape):
     """
     ---------------------------------------------------------------------------------------------
     author: Kyle Hounslow
     ---------------------------------------------------------------------------------------------
-    Converts a list of single images into a list of 'mosaic' images of specified rows and columns.
-    A new mosaic image is started once rows and columns of mosaic image is filled.
-    Empty space of incomplete mosaic images are filled with black pixels
+    Converts a list of single images into a list of 'montage' images of specified rows and columns.
+    A new montage image is started once rows and columns of montage image is filled.
+    Empty space of incomplete montage images are filled with black pixels
     ---------------------------------------------------------------------------------------------
     :param image_list: python list of input images
     :param image_shape: tuple, size each image will be resized to for display (width, height)
-    :param mosaic_shape: tuple, shape of image mosaic (width, height)
-    :return: list of mosaic images in numpy array format
+    :param montage_shape: tuple, shape of image montage (width, height)
+    :return: list of montage images in numpy array format
     ---------------------------------------------------------------------------------------------
 
     example usage:
@@ -194,22 +194,22 @@ def build_mosaics(image_list, image_shape, mosaic_shape):
     img_list = []
     for i in xrange(num_imgs):
         img_list.append(img)
-    # convert image list into a mosaic of 256x256 images tiled in a 5x5 mosaic
-    mosaics = make_mosaics_of_images(img_list, (256, 256), (5, 5))
-    # iterate through mosaics and display
-    for mosaic in mosaics:
-        cv2.imshow('mosaic image', mosaic)
+    # convert image list into a montage of 256x256 images tiled in a 5x5 montage
+    montages = make_montages_of_images(img_list, (256, 256), (5, 5))
+    # iterate through montages and display
+    for montage in montages:
+        cv2.imshow('montage image', montage)
         cv2.waitKey(0)
 
     ----------------------------------------------------------------------------------------------
     """
     if len(image_shape) != 2:
         raise Exception('image shape must be list or tuple of length 2 (rows, cols)')
-    if len(mosaic_shape) != 2:
-        raise Exception('mosaic shape must be list or tuple of length 2 (rows, cols)')
-    image_mosaics = []
+    if len(montage_shape) != 2:
+        raise Exception('montage shape must be list or tuple of length 2 (rows, cols)')
+    image_montages = []
     # start with black canvas to draw images onto
-    mosaic_image = np.zeros(shape=(image_shape[1] * (mosaic_shape[1]), image_shape[0] * mosaic_shape[0], 3),
+    montage_image = np.zeros(shape=(image_shape[1] * (montage_shape[1]), image_shape[0] * montage_shape[0], 3),
                           dtype=np.uint8)
     cursor_pos = [0, 0]
     start_new_img = False
@@ -219,20 +219,20 @@ def build_mosaics(image_list, image_shape, mosaic_shape):
         start_new_img = False
         img = cv2.resize(img, image_shape)
         # draw image to black canvas
-        mosaic_image[cursor_pos[1]:cursor_pos[1] + image_shape[1], cursor_pos[0]:cursor_pos[0] + image_shape[0]] = img
+        montage_image[cursor_pos[1]:cursor_pos[1] + image_shape[1], cursor_pos[0]:cursor_pos[0] + image_shape[0]] = img
         cursor_pos[0] += image_shape[0]  # increment cursor x position
-        if cursor_pos[0] >= mosaic_shape[0] * image_shape[0]:
+        if cursor_pos[0] >= montage_shape[0] * image_shape[0]:
             cursor_pos[1] += image_shape[1]  # increment cursor y position
             cursor_pos[0] = 0
-            if cursor_pos[1] >= mosaic_shape[1] * image_shape[1]:
+            if cursor_pos[1] >= montage_shape[1] * image_shape[1]:
                 cursor_pos = [0, 0]
-                image_mosaics.append(mosaic_image)
+                image_montages.append(montage_image)
                 # reset black canvas
-                mosaic_image = np.zeros(shape=(image_shape[1] * (mosaic_shape[1]), image_shape[0] * mosaic_shape[0], 3),
+                montage_image = np.zeros(shape=(image_shape[1] * (montage_shape[1]), image_shape[0] * montage_shape[0], 3),
                                       dtype=np.uint8)
                 start_new_img = True
     if start_new_img is False:
-        image_mosaics.append(mosaic_image)  # add unfinished mosaic
-    return image_mosaics
+        image_montages.append(montage_image)  # add unfinished montage
+    return image_montages
 
 

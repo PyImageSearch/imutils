@@ -13,4 +13,5 @@ from .convenience import auto_canny
 from .convenience import is_cv2
 from .convenience import is_cv3
 from .convenience import check_opencv_version
+from .convenience import build_montages
 from .meta import find_function

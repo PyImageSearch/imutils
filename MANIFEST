@@ -7,10 +7,14 @@ imutils/contours.py
 imutils/convenience.py
 imutils/encodings.py
 imutils/face_utils.py
+imutils/gftt.py
 imutils/meta.py
 imutils/object_detection.py
 imutils/paths.py
 imutils/perspective.py
+imutils/feature/__init__.py
+imutils/feature/factories.py
+imutils/feature/helpers.py
 imutils/io/__init__.py
 imutils/io/tempfile.py
 imutils/video/__init__.py
