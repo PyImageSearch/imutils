@@ -13,7 +13,4 @@ from .convenience import auto_canny
 from .convenience import is_cv2
 from .convenience import is_cv3
 from .convenience import check_opencv_version
-from .convenience import corners_to_keypoints
 from .meta import find_function
-from .factories import FeatureDetector_create
-from .factories import DescriptorExtractor_create

@@ -170,10 +170,6 @@ def check_opencv_version(major, lib=None):
     # major version number
     return lib.__version__.startswith(major)
 
-def corners_to_keypoints(corners):
-    """function to take the corners from cv2.GoodFeaturesToTrack and return cv2.KeyPoints"""
-    return [cv2.KeyPoint(kp[0][0], kp[0][1], 1) for kp in corners]
-
 def build_mosaics(image_list, image_shape, mosaic_shape):
     """
     ---------------------------------------------------------------------------------------------

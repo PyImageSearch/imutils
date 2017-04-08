@@ -1,5 +1,5 @@
 #from .descriptors.rootsift import RootSIFT
-from .convenience import is_cv2
+from ..convenience import is_cv2
 import cv2
 
 if is_cv2():

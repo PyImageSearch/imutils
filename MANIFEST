@@ -6,6 +6,7 @@ imutils/__init__.py
 imutils/contours.py
 imutils/convenience.py
 imutils/encodings.py
+imutils/face_utils.py
 imutils/meta.py
 imutils/object_detection.py
 imutils/paths.py
