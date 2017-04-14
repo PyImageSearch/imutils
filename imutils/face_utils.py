@@ -79,3 +79,39 @@ def visualize_facial_landmarks(image, shape, colors=None, alpha=0.75):
 
 	# return the output image
 	return output
+
+def blurout_faces(image, face_rects, blur_function, *args, **kwargs):
+	"""
+	Blur out faces in the image given the face_rects. This function DOES NOT perform face detection. It expects
+	faces rects to be given as argument.
+	:param image: Image to be processed
+	:param face_rects: Sequence of (x, y, w, h) of every face
+	:param blur_function: One of cv2.GaussianBlur(), cv2.medianBlur(), etc...
+	:param args: Args to be supplied to `blur_function`
+	:param kwargs: Kwargs to be supplied to `blur_function`
+	:return: Image with faces blurred out
+
+	>>> blurout_faces(image, face_rects, cv2.GaussianBlur, (25, 25), 30)
+	>>> blurout_faces(image, face_rects, cv2.medianBlur, 13)
+	"""
+	for (x, y, w, h) in face_rects:
+		center_x, center_y = x + (w // 2), y + (h // 2)
+
+		# Create circular mask around a face
+		mask = np.zeros(image.shape[:2], dtype="uint8")
+		cv2.circle(mask, (center_x, center_y), min(w, h), 1, -1)
+
+		# Create the inverse of the circular mask
+		mask_inverse = np.ones(image.shape[:2], dtype="uint8")
+		cv2.circle(mask_inverse, (center_x, center_y), min(w, h), 0, -1)
+
+		# Blur the whole image
+		# TODO: some optimization here would be helpful (not to blur the whole image)
+		blurred = blur_function(image, *args, **kwargs)
+		face_blurred = cv2.bitwise_and(blurred, blurred, mask=mask)
+
+		# Apply the inverse mask to leave some room for the blurred face
+		image_with_hole = cv2.bitwise_and(image, image, mask=mask_inverse)
+		image = cv2.add(image_with_hole, face_blurred)
+
+	return image
