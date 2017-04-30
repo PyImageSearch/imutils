@@ -47,7 +47,7 @@ translated = imutils.translate(workspace, 25, -75)</pre>
 
 #### Output:
 
-<img src="docs/images/translation.png?raw=true" alt="Translation example"/ style="max-width: 500px;">
+<img src="docs/images/translation.png?raw=true" alt="Translation example" style="max-width: 500px;">
 
 ## Rotation
 Rotating an image in OpenCV is accomplished by making a call to `cv2.getRotationMatrix2D` and `cv2.warpAffine`. Further care has to be taken to supply the *(x, y)*-coordinate of the point the image is to be rotated about. These calculation calls can quickly add up and make your code bulky and less readable. The `rotate` function in `imutils` helps resolve this problem.
