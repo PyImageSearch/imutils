@@ -46,6 +46,7 @@ Instead of manually constructing the translation matrix *M* and calling `cv2.war
 translated = imutils.translate(workspace, 25, -75)</pre>
 
 #### Output:
+
 <img src="docs/images/translation.png?raw=true" alt="Translation example"/ style="max-width: 500px;">
 
 ## Rotation
@@ -59,6 +60,7 @@ for angle in xrange(0, 360, 90):
 	cv2.imshow("Angle=%d" % (angle), rotated)</pre>
 
 #### Output:
+
 <img src="docs/images/rotation.png?raw=true" alt="Rotation example"/ style="max-width: 500px;">
 
 ## Resizing
@@ -74,6 +76,7 @@ for width in (400, 300, 200, 100):
 	cv2.imshow("Width=%dpx" % (width), resized)</pre>
 
 #### Output:
+
 <img src="docs/images/resizing.png?raw=true" alt="Resizing example"/ style="max-width: 500px;">
 
 ## Skeletonization
@@ -90,6 +93,7 @@ skeleton = imutils.skeletonize(gray, size=(3, 3))
 cv2.imshow("Skeleton", skeleton)</pre>
 
 #### Output:
+
 <img src="docs/images/skeletonization.png?raw=true" alt="Skeletonization example"/ style="max-width: 500px;">
 
 ## Displaying with Matplotlib
@@ -106,6 +110,7 @@ plt.imshow(imutils.opencv2matplotlib(cactus))
 plt.show()</pre>
 
 #### Output:
+
 <img src="docs/images/matplotlib.png?raw=true" alt="Matplotlib example"/ style="max-width: 500px;">
 
 ## URL to Image
@@ -118,6 +123,7 @@ cv2.imshow("URL to Image", logo)
 cv2.waitKey(0)</pre>
 
 #### Output:
+
 <img src="docs/images/url_to_image.png?raw=true" alt="Matplotlib example"/ style="max-width: 500px;">
 
 ## Checking OpenCV Versions
@@ -143,6 +149,7 @@ cv2.imshow("Original", logo)
 cv2.imshow("Automatic Edge Map", edgeMap)</pre>
 
 #### Output:
+
 <img src="docs/images/auto_canny.png?raw=true" alt="Matplotlib example"/ style="max-width: 500px;">
 
 ## 4-point Perspective Transform
@@ -152,6 +159,7 @@ A common task in computer vision and image processing is to perform a 4-point pe
 See the contents of `demos/perspective_transform.py`
 
 #### Output:
+
 <img src="docs/images/perspective_transform.png?raw=true" alt="Matplotlib example"/ style="max-width: 500px;">
 
 ## Sorting Contours
@@ -161,6 +169,7 @@ The contours returned from `cv2.findContours` are unsorted. By using the `contou
 See the contents of `demos/sorting_contours.py`
 
 #### Output:
+
 <img src="docs/images/sorting_contours.png?raw=true" alt="Matplotlib example"/ style="max-width: 500px;">
 
 ## (Recursively) Listing Paths to Images
