@@ -61,7 +61,7 @@ for angle in xrange(0, 360, 90):
 
 #### Output:
 
-<img src="docs/images/rotation.png?raw=true" alt="Rotation example"/ style="max-width: 500px;">
+<img src="docs/images/rotation.png?raw=true" alt="Rotation example" style="max-width: 500px;">
 
 ## Resizing
 Resizing an image in OpenCV is accomplished by calling the `cv2.resize` function. However, special care needs to be taken to ensure that the aspect ratio is maintained.  This `resize` function of `imutils` maintains the aspect ratio and provides the keyword arguments `width` and `height` so the image can be resized to the intended width/height while (1) maintaining aspect ratio and (2) ensuring the dimensions of the image do not have to be explicitly computed by the developer.
@@ -77,7 +77,7 @@ for width in (400, 300, 200, 100):
 
 #### Output:
 
-<img src="docs/images/resizing.png?raw=true" alt="Resizing example"/ style="max-width: 500px;">
+<img src="docs/images/resizing.png?raw=true" alt="Resizing example" style="max-width: 500px;">
 
 ## Skeletonization
 Skeletonization is the process of constructing the "topological skeleton" of an object in an image, where the object is presumed to be white on a black background. OpenCV does not provide a function to explicitly construct the skeleton, but does provide the morphological and binary functions to do so.
@@ -94,7 +94,7 @@ cv2.imshow("Skeleton", skeleton)</pre>
 
 #### Output:
 
-<img src="docs/images/skeletonization.png?raw=true" alt="Skeletonization example"/ style="max-width: 500px;">
+<img src="docs/images/skeletonization.png?raw=true" alt="Skeletonization example" style="max-width: 500px;">
 
 ## Displaying with Matplotlib
 In the Python bindings of OpenCV, images are represented as NumPy arrays in BGR order. This works fine when using the `cv2.imshow` function. However, if you intend on using Matplotlib, the `plt.imshow` function assumes the image is in RGB order. A simple call to `cv2.cvtColor` will resolve this problem, or you can use the `opencv2matplotlib` convenience function.
@@ -111,7 +111,7 @@ plt.show()</pre>
 
 #### Output:
 
-<img src="docs/images/matplotlib.png?raw=true" alt="Matplotlib example"/ style="max-width: 500px;">
+<img src="docs/images/matplotlib.png?raw=true" alt="Matplotlib example" style="max-width: 500px;">
 
 ## URL to Image
 This the `url_to_image` function accepts a single parameter: the `url` of the image we want to download and convert to a NumPy array in OpenCV format. This function performs the download in-memory. The `url_to_image` function has been detailed [here](http://www.pyimagesearch.com/2015/03/02/convert-url-to-image-with-python-and-opencv/) on the PyImageSearch blog.
@@ -124,7 +124,7 @@ cv2.waitKey(0)</pre>
 
 #### Output:
 
-<img src="docs/images/url_to_image.png?raw=true" alt="Matplotlib example"/ style="max-width: 500px;">
+<img src="docs/images/url_to_image.png?raw=true" alt="Matplotlib example" style="max-width: 500px;">
 
 ## Checking OpenCV Versions
 OpenCV 3 has finally been released! But with the major release becomes backward compatibility issues (such as with the `cv2.findContours` and `cv2.normalize` functions). If you want your OpenCV 3 code to be backwards compatible with OpenCV 2.4.X, you'll need to take special care to check which version of OpenCV is currently being used and then take appropriate action. The `is_cv2()` and `is_cv3()` are simple functions that can be used to automatically determine the OpenCV version of the current environment.
@@ -150,7 +150,7 @@ cv2.imshow("Automatic Edge Map", edgeMap)</pre>
 
 #### Output:
 
-<img src="docs/images/auto_canny.png?raw=true" alt="Matplotlib example"/ style="max-width: 500px;">
+<img src="docs/images/auto_canny.png?raw=true" alt="Matplotlib example" style="max-width: 500px;">
 
 ## 4-point Perspective Transform
 A common task in computer vision and image processing is to perform a 4-point perspective transform of a ROI in an image and obtain a top-down, "birds eye view" of the ROI. The `perspective` module takes care of this for you. A real-world example of applying a 4-point perspective transform can be bound in this blog on on [building a kick-ass mobile document scanner](http://www.pyimagesearch.com/2014/09/01/build-kick-ass-mobile-document-scanner-just-5-minutes/).
@@ -160,7 +160,7 @@ See the contents of `demos/perspective_transform.py`
 
 #### Output:
 
-<img src="docs/images/perspective_transform.png?raw=true" alt="Matplotlib example"/ style="max-width: 500px;">
+<img src="docs/images/perspective_transform.png?raw=true" alt="Matplotlib example" style="max-width: 500px;">
 
 ## Sorting Contours
 The contours returned from `cv2.findContours` are unsorted. By using the `contours` module the the `sort_contours` function we can sort a list of contours from left-to-right, right-to-left, top-to-bottom, and bottom-to-top, respectively.
@@ -170,7 +170,7 @@ See the contents of `demos/sorting_contours.py`
 
 #### Output:
 
-<img src="docs/images/sorting_contours.png?raw=true" alt="Matplotlib example"/ style="max-width: 500px;">
+<img src="docs/images/sorting_contours.png?raw=true" alt="Matplotlib example" style="max-width: 500px;">
 
 ## (Recursively) Listing Paths to Images
 The `paths` sub-module of `imutils` includes a function to recursively find images based on a root directory.
