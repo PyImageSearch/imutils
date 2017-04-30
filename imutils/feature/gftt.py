@@ -1,5 +1,5 @@
 import cv2
-from .convenience import corners_to_keypoints
+from .helpers import corners_to_keypoints
 
 
 class GFTT:
