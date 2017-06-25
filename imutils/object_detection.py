@@ -5,6 +5,8 @@ def non_max_suppression(boxes, probs=None, overlapThresh=0.3):
 	# if there are no boxes, return an empty list
 	if len(boxes) == 0:
 		return np.array([], dtype=np.int)
+	
+	boxes = np.asarray(boxes)
 
 	# if the bounding boxes are integers, convert them to floats -- this
 	# is important since we'll be doing a bunch of divisions
@@ -24,11 +26,12 @@ def non_max_suppression(boxes, probs=None, overlapThresh=0.3):
 	# (in the case that no probabilities are provided, simply sort on the
 	# bottom-left y-coordinate)
 	area = (x2 - x1 + 1) * (y2 - y1 + 1)
-	idxs = y2
 
 	# if probabilities are provided, sort on them instead
 	if probs is not None:
 		idxs = probs
+	else:
+		idxs = y2
 
 	# sort the indexes
 	idxs = np.argsort(idxs)
