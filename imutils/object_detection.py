@@ -5,11 +5,11 @@ def non_max_suppression(boxes, probs=None, overlapThresh=0.3):
 	# if there are no boxes, return an empty list
 	if len(boxes) == 0:
 		return np.array([], dtype=np.int)
-	
+
 	# if the bounding boxes are integers, convert them to floats -- this
 	# is important since we'll be doing a bunch of divisions
 	boxes = np.asarray(boxes, dtype=np.float)
-	
+
 	# initialize the list of picked indexes
 	pick = []
 
