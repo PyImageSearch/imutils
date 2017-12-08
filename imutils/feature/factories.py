@@ -1,29 +1,46 @@
 #from .descriptors.rootsift import RootSIFT
 from ..convenience import is_cv2
 import cv2
+from .dense import DENSE
+from .gftt import GFTT
+from .harris import HARRIS
+from .rootsift import RootSIFT
 
 if is_cv2():
     FeatureDetector_create = cv2.FeatureDetector_create
     DescriptorExtractor_create = cv2.DescriptorExtractor_create
+    DescriptorMatcher_create = cv2.DescriptorMatcher_create
+
 else:
     try:
-        _DETECTOR_FACTORY = {"SIFT": cv2.xfeatures2d.SIFT_create,
-                             "SURF": cv2.xfeatures2d.SURF_create,
-                             "STAR": cv2.xfeatures2d.StarDetector_create,
-                             "MSER": cv2.MSER_create,
+        _DETECTOR_FACTORY = {"BRISK": cv2.BRISK_create,
+                             "DENSE": DENSE,
                              "FAST": cv2.FastFeatureDetector_create,
-                             "BRISK": cv2.BRISK_create,
-                             "ORB": cv2.ORB_create
+                             "GFTT": GFTT,
+                             "HARRIS": HARRIS,
+                             "MSER": cv2.MSER_create,
+                             "ORB": cv2.ORB_create,
+                             "SIFT": cv2.xfeatures2d.SIFT_create,
+                             "SURF": cv2.xfeatures2d.SURF_create,
+                             "STAR": cv2.xfeatures2d.StarDetector_create
                              }
 
         _EXTRACTOR_FACTORY = {"SIFT": cv2.xfeatures2d.SIFT_create,
-                              #"ROOTSIFT": RootSIFT,
+                              "ROOTSIFT": RootSIFT,
                               "SURF": cv2.xfeatures2d.SURF_create,
                               "BRIEF": cv2.xfeatures2d.BriefDescriptorExtractor_create,
                               "ORB": cv2.ORB_create,
                               "BRISK": cv2.BRISK_create,
                               "FREAK": cv2.xfeatures2d.FREAK_create
                               }
+
+        _MATCHER_FACTORY = {"BruteForce": cv2.DESCRIPTOR_MATCHER_BRUTEFORCE,
+                           "BruteForce-SL2": cv2.DESCRIPTOR_MATCHER_BRUTEFORCE_SL2,
+                           "BruteForce-L1": cv2.DESCRIPTOR_MATCHER_BRUTEFORCE_L1,
+                           "BruteForce-Hamming": cv2.DESCRIPTOR_MATCHER_BRUTEFORCE_HAMMING,
+                           "FlannBased": cv2.DESCRIPTOR_MATCHER_FLANNBASED
+                           }
+
     except AttributeError:
         _DETECTOR_FACTORY = {"MSER": cv2.MSER_create,
                              "FAST": cv2.FastFeatureDetector_create,
@@ -74,3 +91,16 @@ else:
             raise AttributeError("{} not a supported extractor".format(extractor))
 
         return extr(*args, **kw_args)
+
+    def DescriptorMatcher_create(matcher):
+        """
+
+        :param matcher: string of the type of descriptor matcher to return
+        :return: the matcher int
+        """
+        try:
+            extr = _MATCHER_FACTORY[matcher]
+        except KeyError:
+            raise AttributeError("{} not a supported matcher".format(matcher))
+
+        return cv2.DescriptorMatcher_create(extr)

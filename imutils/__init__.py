@@ -2,7 +2,7 @@
 # website:	http://www.pyimagesearch.com
 
 # set the version number
-__version__ = "0.4.3"
+__version__ = "0.4.4"
 
 # import the necessary packages
 from .convenience import translate
