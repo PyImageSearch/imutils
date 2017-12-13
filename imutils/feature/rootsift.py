@@ -1,22 +1,22 @@
 # import the necessary packages
+from __future__ import absolute_import
 import numpy as np
 import cv2
 from ..convenience import is_cv2
-from . import factories
 
 class RootSIFT:
 	def __init__(self):
-		# initialize the SIFT feature extractor
-		self.extractor = factories.DescriptorExtractor_create("SIFT")
+		# initialize the SIFT feature extractor for OpenCV 2.4
+		if is_cv2():
+			self.extractor = cv2.DescriptorExtractor_create("SIFT")
+
+		# otherwise initialize the SIFT feature extractor for OpenCV 3+
+		else:
+			self.extractor = cv2.xfeatures2d.SIFT_create()
 
 	def compute(self, image, kps, eps=1e-7):
-		# compute SIFT descriptors for OpenCV 2.4
-		if is_cv2:
-			(kps, descs) = self.extractor.compute(image, kps)
-
-		# otherwise, computer SIFT descriptors for OpenCV 3+
-		else:
-			(kps, descs) = self.extractor.detectAndCompute(image, None)
+		# compute SIFT descriptors
+		(kps, descs) = self.extractor.compute(image, kps)
 
 		# if there are no keypoints or descriptors, return an empty tuple
 		if len(kps) == 0:
