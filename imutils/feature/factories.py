@@ -1,4 +1,3 @@
-#from .descriptors.rootsift import RootSIFT
 from ..convenience import is_cv2
 import cv2
 from .dense import DENSE
@@ -7,9 +6,14 @@ from .harris import HARRIS
 from .rootsift import RootSIFT
 
 if is_cv2():
-    FeatureDetector_create = cv2.FeatureDetector_create
-    DescriptorExtractor_create = cv2.DescriptorExtractor_create
-    DescriptorMatcher_create = cv2.DescriptorMatcher_create
+    def FeatureDetector_create(method):
+        return cv2.FeatureDetector_create(method)
+
+    def DescriptorExtractor_create(method):
+        return cv2.DescriptorExtractor_create(method)
+
+    def DescriptorMatcher_create(method):
+        return cv2.DescriptorMatcher_create(method)
 
 else:
     try:
