@@ -7,9 +7,19 @@ from .rootsift import RootSIFT
 
 if is_cv2():
     def FeatureDetector_create(method):
+        method = method.upper()
+        if method == "DENSE":
+            return DENSE()
+        elif method == "GFTT":
+            return GFTT()
+        elif method == "HARRIS":
+            return HARRIS()
         return cv2.FeatureDetector_create(method)
 
     def DescriptorExtractor_create(method):
+        method = method.upper()
+        if method == "ROOTSIFT":
+            return RootSIFT()
         return cv2.DescriptorExtractor_create(method)
 
     def DescriptorMatcher_create(method):
