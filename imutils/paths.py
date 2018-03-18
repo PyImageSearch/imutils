@@ -3,9 +3,9 @@ import os
 
 def list_images(basePath, contains=None):
     # return the set of files that are valid
-    return list_files(basePath, validExts=(".jpg", ".jpeg", ".png", ".bmp"), contains=contains)
+    return list_files(basePath, validExts=(".jpg", ".jpeg", ".png", ".bmp", ".tif", ".tiff"), contains=contains)
 
-def list_files(basePath, validExts=(".jpg", ".jpeg", ".png", ".bmp"), contains=None):
+def list_files(basePath, validExts=(".jpg", ".jpeg", ".png", ".bmp", ".tif", ".tiff"), contains=None):
     # loop over the directory structure
     for (rootDir, dirNames, filenames) in os.walk(basePath):
         # loop over the filenames in the current directory
