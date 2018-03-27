@@ -4,7 +4,7 @@ import os
 def list_images(basePath, contains=None):
     # return the set of files that are valid
     return list_files(basePath, validExts=(".jpg", ".jpeg", ".png", ".bmp", ".tif", ".tiff", ".webp",
-                                           ".dib", ".jp2", ".pbm", "pgm", ".ppm", ".sr", ".ras"), contains=contains)
+                                           ".dib", ".jp2", ".pbm", ".pgm", ".ppm", ".sr", ".ras"), contains=contains)
 
 def list_files(basePath, validExts="", contains=None):
     # loop over the directory structure
