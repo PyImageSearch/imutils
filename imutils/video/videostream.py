@@ -37,3 +37,4 @@ class VideoStream:
 	def stop(self):
 		# stop the thread and release any resources
 		self.stream.stop()
+		
