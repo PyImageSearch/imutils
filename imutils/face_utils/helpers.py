@@ -5,7 +5,9 @@ import cv2
 
 # define a dictionary that maps the indexes of the facial
 # landmarks to specific face regions
-FACIAL_LANDMARKS_IDXS = OrderedDict([
+
+#For dlib’s 68-point facial landmark detector:
+FACIAL_LANDMARKS_68_IDXS = OrderedDict([
 	("mouth", (48, 68)),
 	("right_eyebrow", (17, 22)),
 	("left_eyebrow", (22, 27)),
@@ -13,6 +15,13 @@ FACIAL_LANDMARKS_IDXS = OrderedDict([
 	("left_eye", (42, 48)),
 	("nose", (27, 36)),
 	("jaw", (0, 17))
+])
+
+#For dlib’s 5-point facial landmark detector:
+FACIAL_LANDMARKS_5_IDXS = OrderedDict([
+	("right_eye", (2, 3)),
+	("left_eye", (0, 1)),
+	("nose", (4))
 ])
 
 def rect_to_bb(rect):
