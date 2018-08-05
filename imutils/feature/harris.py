@@ -10,7 +10,11 @@ class HARRIS:
         self.k = k
         self.T = T
 
-    def detect(self, img):
+    def detect(self, img, mask=None):
+        # Mask
+        if mask is not None:
+            img = cv2.bitwise_and(img, mask)
+
         # convert our input image to a floating point data type and then
         # compute the Harris corner matrix
         gray = np.float32(img)
