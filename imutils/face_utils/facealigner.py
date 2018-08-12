@@ -1,5 +1,6 @@
 # import the necessary packages
-from .helpers import FACIAL_LANDMARKS_IDXS
+from .helpers import FACIAL_LANDMARKS_68_IDXS
+from .helpers import FACIAL_LANDMARKS_5_IDXS
 from .helpers import shape_to_np
 import numpy as np
 import cv2
@@ -23,10 +24,16 @@ class FaceAligner:
 		# convert the landmark (x, y)-coordinates to a NumPy array
 		shape = self.predictor(gray, rect)
 		shape = shape_to_np(shape)
-
-		# extract the left and right eye (x, y)-coordinates
-		(lStart, lEnd) = FACIAL_LANDMARKS_IDXS["left_eye"]
-		(rStart, rEnd) = FACIAL_LANDMARKS_IDXS["right_eye"]
+		
+		#simple hack ;)
+		if (len(shape)==68):
+			# extract the left and right eye (x, y)-coordinates
+			(lStart, lEnd) = FACIAL_LANDMARKS_68_IDXS["left_eye"]
+			(rStart, rEnd) = FACIAL_LANDMARKS_68_IDXS["right_eye"]
+		else:
+			(lStart, lEnd) = FACIAL_LANDMARKS_5_IDXS["left_eye"]
+			(rStart, rEnd) = FACIAL_LANDMARKS_5_IDXS["right_eye"]
+			
 		leftEyePts = shape[lStart:lEnd]
 		rightEyePts = shape[rStart:rEnd]
 
