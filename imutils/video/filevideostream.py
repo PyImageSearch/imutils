@@ -78,7 +78,7 @@ class FileVideoStream:
 	# not take into account if the producer has reached end of
 	# file stream. 
 	def running(self):
-		return self.Q.qsize() > 0 or not self.stopped
+		return self.more() or not self.stopped
 
 	def more(self):
 		# return True if there are still frames in the queue
