@@ -24,6 +24,10 @@ FACIAL_LANDMARKS_5_IDXS = OrderedDict([
 	("nose", (4))
 ])
 
+# in order to support legacy code, we'll default the indexes to the
+# 68-point model
+FACIAL_LANDMARKS_IDXS = FACIAL_LANDMARKS_68_IDXS
+
 def rect_to_bb(rect):
 	# take a bounding predicted by dlib and convert it
 	# to the format (x, y, w, h) as we would normally do
