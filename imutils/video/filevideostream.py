@@ -12,8 +12,9 @@ if sys.version_info >= (3, 0):
 else:
 	from Queue import Queue
 
+
 class FileVideoStream:
-	def __init__(self, path, transform=None, queueSize=128):
+	def __init__(self, path, transform=None, queue_size=128):
 		# initialize the file video stream along with the boolean
 		# used to indicate if the thread should be stopped or not
 		self.stream = cv2.VideoCapture(path)
@@ -22,13 +23,16 @@ class FileVideoStream:
 
 		# initialize the queue used to store frames read from
 		# the video file
-		self.Q = Queue(maxsize=queueSize)
+		self.Q = Queue(maxsize=queue_size)
 
 	def start(self):
 		# start a thread to read frames from the file video stream
-		t = Thread(target=self.update, args=())
-		t.daemon = True
-		t.start()
+		self.thread = Thread(target=self.update, args=())
+		self.thread.daemon = True
+		self.thread.start()
+		# block main thread until first image is grabbed
+		while self.Q.qsize() == 0:
+			time.sleep(0.1)
 		return self
 
 	def update(self):
@@ -37,7 +41,7 @@ class FileVideoStream:
 			# if the thread indicator variable is set, stop the
 			# thread
 			if self.stopped:
-				return
+				break
 
 			# otherwise, ensure the queue has room in it
 			if not self.Q.full():
@@ -47,8 +51,8 @@ class FileVideoStream:
 				# if the `grabbed` boolean is `False`, then we have
 				# reached the end of the video file
 				if not grabbed:
-					self.stop()
-					return
+					self.stopped = True
+					break
 
 				# if there are transforms to be done, might as well
 				# do them on producer thread before handing back to
@@ -68,7 +72,9 @@ class FileVideoStream:
 				# add the frame to the queue
 				self.Q.put(frame)
 			else:
-				time.sleep(0.1)  # Rest for 10ms, we have a full queue  
+				time.sleep(0.1)  # Rest for 10ms, we have a full queue
+
+		self.stream.release()
 
 	def read(self):
 		# return next frame in the queue
@@ -87,3 +93,5 @@ class FileVideoStream:
 	def stop(self):
 		# indicate that the thread should be stopped
 		self.stopped = True
+		# wait until stream resources are released (producer thread might be still grabbing frame)
+		self.thread.join()
