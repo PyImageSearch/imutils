@@ -24,15 +24,13 @@ class FileVideoStream:
 		# initialize the queue used to store frames read from
 		# the video file
 		self.Q = Queue(maxsize=queue_size)
+		# intialize thread
+		self.thread = Thread(target=self.update, args=())
+		self.thread.daemon = True
 
 	def start(self):
 		# start a thread to read frames from the file video stream
-		self.thread = Thread(target=self.update, args=())
-		self.thread.daemon = True
 		self.thread.start()
-		# block main thread until first image is grabbed
-		while self.Q.qsize() == 0:
-			time.sleep(0.1)
 		return self
 
 	def update(self):
@@ -51,7 +49,6 @@ class FileVideoStream:
 				# if the `grabbed` boolean is `False`, then we have
 				# reached the end of the video file
 				if not grabbed:
-					self.stopped = True
 					break
 
 				# if there are transforms to be done, might as well
@@ -63,7 +60,7 @@ class FileVideoStream:
 				# are usually OpenCV native so release the GIL.
 				#
 				# Really just trying to avoid spinning up additional
-				# native threads and overheads of additional 
+				# native threads and overheads of additional
 				# producer/consumer queues since this one was generally
 				# idle grabbing frames.
 				if self.transform:
@@ -82,12 +79,17 @@ class FileVideoStream:
 
 	# Insufficient to have consumer use while(more()) which does
 	# not take into account if the producer has reached end of
-	# file stream. 
+	# file stream.
 	def running(self):
 		return self.more() or not self.stopped
 
 	def more(self):
-		# return True if there are still frames in the queue
+		# return True if there are still frames in the queue. If stream is not stopped, try to wait a moment
+		tries = 0
+		while self.Q.qsize() == 0 and not self.stopped and tries < 5:
+			time.sleep(0.1)
+			tries += 1
+
 		return self.Q.qsize() > 0
 
 	def stop(self):
