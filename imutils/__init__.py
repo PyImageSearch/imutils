@@ -19,3 +19,5 @@ from .convenience import is_cv4
 from .convenience import check_opencv_version
 from .convenience import build_montages
 from .meta import find_function
+from .color_extraction import extractDominantColor
+from .color_extraction import plotColorBar
