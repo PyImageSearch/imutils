@@ -18,4 +18,5 @@ from .convenience import is_cv3
 from .convenience import is_cv4
 from .convenience import check_opencv_version
 from .convenience import build_montages
+from .convenience import adjust
 from .meta import find_function
