@@ -1,6 +1,5 @@
 # author:    Adrian Rosebrock
 # website:   http://www.pyimagesearch.com
-# Updated by Tim Poulsen, @skypanther
 
 # USAGE
 # from the demos folder:
@@ -9,10 +8,6 @@
 # import the necessary packages
 from __future__ import print_function
 # You'll need to force '../imutils' into the system path if testing
-# before this addition is merged into the imutils library so that you
-# load the local package not the one installed on your system.
-# sys.path.insert(0, '../imutils')
-# import sys
 from imutils import paths
 
 # loop over the image paths in the previous 'demo_images'
