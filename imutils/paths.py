@@ -1,11 +1,15 @@
 # import the necessary packages
 import os
 
+image_types = (".jpg", ".jpeg", ".png", ".bmp", ".tif", ".tiff")
+
+
 def list_images(basePath, contains=None):
     # return the set of files that are valid
-    return list_files(basePath, validExts=(".jpg", ".jpeg", ".png", ".bmp", ".tif", ".tiff"), contains=contains)
+    return list_files(basePath, validExts=image_types, contains=contains)
 
-def list_files(basePath, validExts=(".jpg", ".jpeg", ".png", ".bmp", ".tif", ".tiff"), contains=None):
+
+def list_files(basePath, validExts=None, contains=None):
     # loop over the directory structure
     for (rootDir, dirNames, filenames) in os.walk(basePath):
         # loop over the filenames in the current directory
@@ -19,7 +23,7 @@ def list_files(basePath, validExts=(".jpg", ".jpeg", ".png", ".bmp", ".tif", ".t
             ext = filename[filename.rfind("."):].lower()
 
             # check to see if the file is an image and should be processed
-            if ext.endswith(validExts):
+            if validExts is None or ext.endswith(validExts):
                 # construct the path to the image and yield it
-                imagePath = os.path.join(rootDir, filename).replace(" ", "\\ ")
+                imagePath = os.path.join(rootDir, filename)
                 yield imagePath
