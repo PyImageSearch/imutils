@@ -11,12 +11,7 @@ from __future__ import print_function
 import argparse
 import cv2
 import os
-# You'll need to force '../imutils' into the system path if testing
-# before this addition is merged into the imutils library so that you
-# load the local package not the one installed on your system.
-# sys.path.insert(0, '../imutils')
-# import sys
-from imutils import adjust
+from imutils import adjust_brightness_contrast
 
 # construct the argument parser and parse the arguments
 ap = argparse.ArgumentParser()
@@ -38,7 +33,7 @@ image = cv2.imread(file_name)
 
 cv2.namedWindow('Original')
 cv2.namedWindow('Adjusted')
-adjusted = adjust(image, contrast=contrast, brightness=brightness)
+adjusted = adjust_brightness_contrast(image, contrast=contrast, brightness=brightness)
 cv2.imshow('Original', image)
 cv2.imshow('Adjusted', adjusted)
 cv2.waitKey(0)

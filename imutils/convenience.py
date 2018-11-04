@@ -14,7 +14,6 @@ if sys.version_info.major == 2:
 elif sys.version_info.major == 3:
     from urllib.request import urlopen
 
-
 def translate(image, x, y):
     # define the translation matrix and perform the translation
     M = np.float32([[1, 0, x], [0, 1, y]])
@@ -22,7 +21,6 @@ def translate(image, x, y):
 
     # return the translated image
     return shifted
-
 
 def rotate(image, angle, center=None, scale=1.0):
     # grab the dimensions of the image
@@ -39,7 +37,6 @@ def rotate(image, angle, center=None, scale=1.0):
 
     # return the rotated image
     return rotated
-
 
 def rotate_bound(image, angle):
     # grab the dimensions of the image and then determine the
@@ -64,7 +61,6 @@ def rotate_bound(image, angle):
 
     # perform the actual rotation and return the image
     return cv2.warpAffine(image, M, (nW, nH))
-
 
 def resize(image, width=None, height=None, inter=cv2.INTER_AREA):
     # initialize the dimensions of the image to be resized and
@@ -97,7 +93,6 @@ def resize(image, width=None, height=None, inter=cv2.INTER_AREA):
     # return the resized image
     return resized
 
-
 def skeletonize(image, size, structuring=cv2.MORPH_RECT):
     # determine the area (i.e. total number of pixels in the image),
     # initialize the output skeletonized image, and construct the
@@ -128,13 +123,11 @@ def skeletonize(image, size, structuring=cv2.MORPH_RECT):
     # return the skeletonized image
     return skeleton
 
-
 def opencv2matplotlib(image):
     # OpenCV represents images in BGR order; however, Matplotlib
     # expects the image in RGB order, so simply convert from BGR
     # to RGB and return
     return cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-
 
 def url_to_image(url, readFlag=cv2.IMREAD_COLOR):
     # download the image, convert it to a NumPy array, and then read
@@ -145,7 +138,6 @@ def url_to_image(url, readFlag=cv2.IMREAD_COLOR):
 
     # return the image
     return image
-
 
 def auto_canny(image, sigma=0.33):
     # compute the median of the single channel pixel intensities
@@ -159,7 +151,6 @@ def auto_canny(image, sigma=0.33):
     # return the edged image
     return edged
 
-
 def is_cv2(or_better=False):
     # grab the OpenCV major version number
     major = get_opencv_major_version()
@@ -170,7 +161,6 @@ def is_cv2(or_better=False):
 
     # otherwise we want to check for *strictly* OpenCV 2
     return major == 2
-
 
 def is_cv3(or_better=True):
     # grab the OpenCV major version number
@@ -183,7 +173,6 @@ def is_cv3(or_better=True):
     # otherwise we want to check for *strictly* OpenCV 3
     return major == 3
 
-
 def is_cv4(or_better=True):
     # grab the OpenCV major version number
     major = get_opencv_major_version()
@@ -195,7 +184,6 @@ def is_cv4(or_better=True):
     # otherwise we want to check for *strictly* OpenCV 4
     return major == 4
 
-
 def get_opencv_major_version(lib=None):
     # if the supplied library is None, import OpenCV
     if lib is None:
@@ -203,7 +191,6 @@ def get_opencv_major_version(lib=None):
 
     # return the major version number
     return int(lib.__version__.split(".")[0])
-
 
 def check_opencv_version(major, lib=None):
     # this function may be removed in a future release as we now
@@ -216,15 +203,14 @@ def check_opencv_version(major, lib=None):
         removed in a future release. Use at your own risk.
     """
     warnings.warn(message, DeprecationWarning, stacklevel=2)
-
+    
     # if the supplied library is None, import OpenCV
     if lib is None:
         import cv2 as lib
-
+        
     # return whether or not the current OpenCV version matches the
     # major version number
     return lib.__version__.startswith(major)
-
 
 def build_montages(image_list, image_shape, montage_shape):
     """
@@ -260,26 +246,22 @@ def build_montages(image_list, image_shape, montage_shape):
     ----------------------------------------------------------------------------------------------
     """
     if len(image_shape) != 2:
-        raise Exception(
-            'image shape must be list or tuple of length 2 (rows, cols)')
+        raise Exception('image shape must be list or tuple of length 2 (rows, cols)')
     if len(montage_shape) != 2:
-        raise Exception(
-            'montage shape must be list or tuple of length 2 (rows, cols)')
+        raise Exception('montage shape must be list or tuple of length 2 (rows, cols)')
     image_montages = []
     # start with black canvas to draw images onto
     montage_image = np.zeros(shape=(image_shape[1] * (montage_shape[1]), image_shape[0] * montage_shape[0], 3),
-                             dtype=np.uint8)
+                          dtype=np.uint8)
     cursor_pos = [0, 0]
     start_new_img = False
     for img in image_list:
         if type(img).__module__ != np.__name__:
-            raise Exception(
-                'input of type {} is not a valid numpy array'.format(type(img)))
+            raise Exception('input of type {} is not a valid numpy array'.format(type(img)))
         start_new_img = False
         img = cv2.resize(img, image_shape)
         # draw image to black canvas
-        montage_image[cursor_pos[1]:cursor_pos[1] + image_shape[1],
-                      cursor_pos[0]:cursor_pos[0] + image_shape[0]] = img
+        montage_image[cursor_pos[1]:cursor_pos[1] + image_shape[1], cursor_pos[0]:cursor_pos[0] + image_shape[0]] = img
         cursor_pos[0] += image_shape[0]  # increment cursor x position
         if cursor_pos[0] >= montage_shape[0] * image_shape[0]:
             cursor_pos[1] += image_shape[1]  # increment cursor y position
@@ -289,14 +271,14 @@ def build_montages(image_list, image_shape, montage_shape):
                 image_montages.append(montage_image)
                 # reset black canvas
                 montage_image = np.zeros(shape=(image_shape[1] * (montage_shape[1]), image_shape[0] * montage_shape[0], 3),
-                                         dtype=np.uint8)
+                                      dtype=np.uint8)
                 start_new_img = True
     if start_new_img is False:
         image_montages.append(montage_image)  # add unfinished montage
     return image_montages
 
 
-def adjust(image, brightness=0., contrast=0.):
+def adjust_brightness_contrast(image, brightness=0., contrast=0.):
     """
     Adjust the brightness and/or contrast of an image
 
