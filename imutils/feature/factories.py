@@ -60,7 +60,9 @@ else:
                              "FAST": cv2.FastFeatureDetector_create,
                              "BRISK": cv2.BRISK_create,
                              "ORB": cv2.ORB_create,
-                             "GFTT": GFTT
+                             "GFTT": GFTT,
+                             "HARRIS": HARRIS,
+                             "DENSE": DENSE
                              }
 
         _EXTRACTOR_FACTORY = {"ORB": cv2.ORB_create,
