@@ -40,3 +40,7 @@ class WebcamVideoStream:
 	def stop(self):
 		# indicate that the thread should be stopped
 		self.stopped = True
+
+	def isOpened(self):
+		# Returns true if the video capture stream was successfully opened. Returns false otherwise.
+		return self.stream.isOpened()
