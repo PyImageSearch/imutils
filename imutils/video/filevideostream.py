@@ -39,7 +39,7 @@ class FileVideoStream:
 			# if the thread indicator variable is set, stop the
 			# thread
 			if self.stopped:
-				break
+				self.stopped = True
 
 			# otherwise, ensure the queue has room in it
 			if not self.Q.full():
