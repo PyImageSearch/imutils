@@ -278,3 +278,19 @@ def build_montages(image_list, image_shape, montage_shape):
     return image_montages
 
 
+def adjust_brightness_contrast(image, brightness=0., contrast=0.):
+    """
+    Adjust the brightness and/or contrast of an image
+
+    :param image: OpenCV BGR image
+    :param contrast: Float, contrast adjustment with 0 meaning no change
+    :param brightness: Float, brightness adjustment with 0 meaning no change
+    """
+    beta = 0
+    # See the OpenCV docs for more info on the `beta` parameter to addWeighted
+    # https://docs.opencv.org/3.4.2/d2/de8/group__core__array.html#gafafb2513349db3bcff51f54ee5592a19
+    return cv2.addWeighted(image,
+                           1 + float(contrast) / 100.,
+                           image,
+                           beta,
+                           float(brightness))
