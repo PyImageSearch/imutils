@@ -39,7 +39,7 @@ class FileVideoStream:
 			# if the thread indicator variable is set, stop the
 			# thread
 			if self.stopped:
-				self.stopped = True
+				break
 
 			# otherwise, ensure the queue has room in it
 			if not self.Q.full():
@@ -49,8 +49,8 @@ class FileVideoStream:
 				# if the `grabbed` boolean is `False`, then we have
 				# reached the end of the video file
 				if not grabbed:
-					break
-
+					self.stopped = True
+					
 				# if there are transforms to be done, might as well
 				# do them on producer thread before handing back to
 				# consumer thread. ie. Usually the producer is so far
