@@ -9,6 +9,7 @@ import cv2
 #For dlib’s 68-point facial landmark detector:
 FACIAL_LANDMARKS_68_IDXS = OrderedDict([
 	("mouth", (48, 68)),
+	("inner_mouth", (60, 68)),
 	("right_eyebrow", (17, 22)),
 	("left_eyebrow", (22, 27)),
 	("right_eye", (36, 42)),
