@@ -55,4 +55,4 @@ class WebcamVideoStream:
 		# wait until stream resources are released (producer thread might be still grabbing frame)
 		if self.thread is not None: 
 			self.thread.join()
-			#properly handle stop the thread
+			#properly handle thread exit
