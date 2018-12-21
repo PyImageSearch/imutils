@@ -62,7 +62,7 @@ def rotate_bound(image, angle):
     # perform the actual rotation and return the image
     return cv2.warpAffine(image, M, (nW, nH))
 
-def resize(image, width=None, height=None, inter=cv2.INTER_AREA):
+def resize(image, width=None, height=None, inter=cv.INTER_AREA):
     # initialize the dimensions of the image to be resized and
     # grab the image size
     dim = None
@@ -74,18 +74,22 @@ def resize(image, width=None, height=None, inter=cv2.INTER_AREA):
         return image
 
     # check to see if the width is None
-    if width is None:
+    elif width is None:
         # calculate the ratio of the height and construct the
         # dimensions
         r = height / float(h)
         dim = (int(w * r), height)
 
-    # otherwise, the height is None
-    else:
-        # calculate the ratio of the width and construct the
+    # check to see if the height is None
+    elif height is None:
+        # calculate the ratio of the height and construct the
         # dimensions
         r = width / float(w)
-        dim = (width, int(h * r))
+        dim = (width, int(h*r))
+
+    # else, both height and width are not None
+    else:
+        dim = (width, height)
 
     # resize the image
     resized = cv2.resize(image, dim, interpolation=inter)
