@@ -29,7 +29,7 @@ def setup_trackbars(range_filter):
 def get_arguments():
     ap = argparse.ArgumentParser()
     ap.add_argument('-f', '--filter', required=True,
-                    help='Range filter. RGB or HSV')
+                    help='Range filter. RGB, HSV, or even LAB!')
     ap.add_argument('-i', '--image', required=False,
                     help='Path to the image')
     ap.add_argument('-w', '--webcam', required=False,
@@ -69,6 +69,8 @@ def main():
 
         if range_filter == 'RGB':
             frame_to_thresh = image.copy()
+        elif range_filter == 'LAB':
+            frame_to_thresh = cv2.cvtColor(image, cv2.COLOR_BGR2LAB)
         else:
             frame_to_thresh = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
     else:
