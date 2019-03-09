@@ -6,21 +6,25 @@ import logging
 import cv2
 
 class PiVideoStream:
-	def __init__(self, resolution=(320, 240), framerate=30, **options):
+	def __init__(self, resolution=(320, 240), framerate=30,  sensor_mode = 0, logging = False, **options):
 		# initialize the camera and stream
 		self.camera = PiCamera()
 		self.camera.resolution = resolution
 		self.camera.framerate = framerate
+		self.camera.sensor_mode = sensor_mode
+		for key, value in options.items():
+			setattr(self.camera, key, value)
 		self.rawCapture = PiRGBArray(self.camera, size=resolution)
-		self.stream = self.camera.capture_continuous(self.rawCapture,format="bgr", use_video_port=True,  **options)
+		self.stream = self.camera.capture_continuous(self.rawCapture,format="bgr", use_video_port=True)
 
 		#thread intialization
 		self.thread = None
 
 		#enable logging
-		self.logging = False
+		self.logging = logging
 
 		self.stopped = False
+
 
 	def start(self):
 		# start the thread to read frames from the video stream
