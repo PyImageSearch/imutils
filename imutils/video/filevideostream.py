@@ -50,24 +50,24 @@ class FileVideoStream:
 				# reached the end of the video file
 				if not grabbed:
 					self.stopped = True
-					
-				# if there are transforms to be done, might as well
-				# do them on producer thread before handing back to
-				# consumer thread. ie. Usually the producer is so far
-				# ahead of consumer that we have time to spare.
-				#
-				# Python is not parallel but the transform operations
-				# are usually OpenCV native so release the GIL.
-				#
-				# Really just trying to avoid spinning up additional
-				# native threads and overheads of additional
-				# producer/consumer queues since this one was generally
-				# idle grabbing frames.
-				if self.transform:
-					frame = self.transform(frame)
+				else:
+					# if there are transforms to be done, might as well
+					# do them on producer thread before handing back to
+					# consumer thread. ie. Usually the producer is so far
+					# ahead of consumer that we have time to spare.
+					#
+					# Python is not parallel but the transform operations
+					# are usually OpenCV native so release the GIL.
+					#
+					# Really just trying to avoid spinning up additional
+					# native threads and overheads of additional
+					# producer/consumer queues since this one was generally
+					# idle grabbing frames.
+					if self.transform:
+						frame = self.transform(frame)
 
-				# add the frame to the queue
-				self.Q.put(frame)
+					# add the frame to the queue
+					self.Q.put(frame)
 			else:
 				time.sleep(0.1)  # Rest for 10ms, we have a full queue
 
