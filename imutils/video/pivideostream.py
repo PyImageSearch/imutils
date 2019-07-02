@@ -14,7 +14,7 @@ class PiVideoStream:
 		self.camera.framerate = framerate
 
 		# set optional camera parameters (refer to PiCamera docs)
-		for arg, value in kwargs.items():
+		for (arg, value) in kwargs.items():
 			setattr(self.camera, arg, value)
 
 		# initialize the stream
