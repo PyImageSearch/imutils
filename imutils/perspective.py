@@ -41,7 +41,6 @@ def four_point_transform(image, pts):
     # individually
     rect = order_points(pts)
     (tl, tr, br, bl) = rect
-    print("Rect: ", rect)
     # compute the width of the new image, which will be the
     # maximum distance between bottom-right and bottom-left
     # x-coordiates or the top-right and top-left x-coordinates
@@ -66,7 +65,6 @@ def four_point_transform(image, pts):
         [maxWidth - 1, 0],
         [maxWidth - 1, maxHeight - 1],
         [0, maxHeight - 1]], dtype="float32")
-    print("Dst: ", dst)
     # compute the perspective transform matrix and then apply it
     M = cv2.getPerspectiveTransform(rect, dst)
     warped = cv2.warpPerspective(image, M, (maxWidth, maxHeight))
