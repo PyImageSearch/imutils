@@ -30,10 +30,10 @@ def order_points(pts):
     # point and each of the remaining points with the vector
     # (1,0), a horizontal vector
     angles = [angle(x - tl, [1,0]) for x in rem]
-
+    
     # Sort the remaining points by their angle to the origin point, 
     # and then create the output array. 
-    return np.array([tl, *[x for _,x in sorted(zip(angles,rem))]], dtype="float32")
+    return np.array([tl, *[x for _,x in sorted(zip(angles,rem), key=lambda x: x[0])]], dtype="float32")
 
 
 def four_point_transform(image, pts):
