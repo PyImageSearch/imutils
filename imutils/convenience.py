@@ -87,13 +87,19 @@ def resize(image, width=None, height=None, inter=cv2.INTER_AREA):
         # check if the original ratio is greate than the new one
         # and resize the image from that new sizes
         if R > r:
+            # get the new width with the correct ratio
             new_w = R * height
+            # find the center of the new width
             start_w = (new_w - width) / 2
+            # resize the image
             resized = cv2.resize(image, (int(new_w), h), interpolation=cv2.INTER_AREA)
 
         else:
+            # get the new height with the correct ratio
             new_h = r * width
+            # find the center of the new height
             start_h = (new_h - height) / 2
+            # resize the image
             resized = cv2.resize(image, (w, int(new_h)), interpolation=cv2.INTER_AREA)
 
         # crop the image to the sizes required
