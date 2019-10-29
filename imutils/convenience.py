@@ -88,19 +88,19 @@ def resize(image, width=None, height=None, inter=cv2.INTER_AREA):
         # and resize the image from that new sizes
         if R > r:
             # get the new width with the correct ratio
-            new_w = R * height
+            new_w = (height * w) / h
             # find the center of the new width
-            start_w = (new_w - width) / 2
+            start_w = int((new_w - width) / 2)
             # resize the image
-            resized = cv2.resize(image, (int(new_w), h), interpolation=cv2.INTER_AREA)
+            resized = cv2.resize(image, (int(new_w), height), interpolation=cv2.INTER_AREA)
 
         else:
             # get the new height with the correct ratio
-            new_h = r * width
+            new_w = (width * h) / w
             # find the center of the new height
-            start_h = (new_h - height) / 2
+            start_h = int((new_h - height) / 2)
             # resize the image
-            resized = cv2.resize(image, (w, int(new_h)), interpolation=cv2.INTER_AREA)
+            resized = cv2.resize(image, (width, int(new_h)), interpolation=cv2.INTER_AREA)
 
         # crop the image to the sizes required
         return resized[start_h:(start_h + height), start_w:(start_w + width)]
