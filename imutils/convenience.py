@@ -73,6 +73,32 @@ def resize(image, width=None, height=None, inter=cv2.INTER_AREA):
     if width is None and height is None:
         return image
 
+    if width and height:
+        resized = image
+        # calculate the ratio of the original image
+        R = w / h
+        # calculate the ratio of the new dimensions
+        r = width / height
+
+        # cropping starting points
+        start_w = 0
+        start_h = 0
+
+        # check if the original ratio is greate than the new one
+        # and resize the image from that new sizes
+        if R > r:
+            new_w = R * height
+            start_w = (new_w - width) / 2
+            resized = cv2.resize(image, (int(new_w), h), interpolation=cv2.INTER_AREA)
+
+        else:
+            new_h = r * width
+            start_h = (new_h - height) / 2
+            resized = cv2.resize(image, (w, int(new_h)), interpolation=cv2.INTER_AREA)
+
+        # crop the image to the sizes required
+        return resized[start_h:(start_h + height), start_w:(start_w + width)]
+
     # check to see if the width is None
     if width is None:
         # calculate the ratio of the height and construct the
@@ -226,11 +252,11 @@ def check_opencv_version(major, lib=None):
         removed in a future release. Use at your own risk.
     """
     warnings.warn(message, DeprecationWarning, stacklevel=2)
-    
+
     # if the supplied library is None, import OpenCV
     if lib is None:
         import cv2 as lib
-        
+
     # return whether or not the current OpenCV version matches the
     # major version number
     return lib.__version__.startswith(major)
