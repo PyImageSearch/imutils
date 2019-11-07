@@ -28,6 +28,8 @@ class WebcamVideoStream:
 		while True:
 			# if the thread indicator variable is set, stop the thread
 			if self.stopped:
+				# release the video camera stream
+				self.stream.release()
 				return
 
 			# otherwise, read the next frame from the stream
