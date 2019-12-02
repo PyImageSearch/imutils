@@ -14,6 +14,10 @@ Provided you already have NumPy, SciPy, Matplotlib, and OpenCV already installed
 
 <pre>$ pip install imutils</pre>
 
+Package can be installed manually, from source (in case of modifications from pip version)
+
+<pre>$ python setup.py install --user</pre>
+
 ## Finding function OpenCV functions by name
 OpenCV can be a big, hard to navigate library, especially if you are just getting started learning computer vision and image processing. The `find_function` method allows you to quickly search function names across modules (and optionally sub-modules) to find the function you are looking for.
 
