@@ -3,7 +3,7 @@ from threading import Thread
 import cv2
 
 class JetsonVideoStream:
-	def __init__(self, outputResolution=(960, 40), frameRate=28, flipMethod=0, exposureTimeInMiliseconds=None, gain=None, name="JetsonVideoStream"):
+	def __init__(self, outputResolution=(960, 460), frameRate=28, flipMethod=0, exposureTimeInMiliseconds=None, gain=None, name="JetsonVideoStream"):
 		# set up the gstreamer string used to set up the camera on 
 		# the jetson board
 		# exposureTime - in miliseconds (0,013 to 683)
