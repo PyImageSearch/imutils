@@ -34,7 +34,7 @@ while fps._numFrames < args["num_frames"]:
 	# grab the frame from the threaded video stream and resize it
 	# to have a maximum width of 400 pixels
 	frame = jvs.read()
-	frame = imutils.resize(frame, width=400)
+	frame = imutils.resize(frame, width=960)
 
 	# check to see if the frame should be displayed to our screen
 	if args["display"] > 0:
@@ -50,5 +50,5 @@ print("[INFO] elasped time: {:.2f}".format(fps.elapsed()))
 print("[INFO] approx. FPS: {:.2f}".format(fps.fps()))
 
 # do a bit of cleanup
-cv2.destroyAllWindows()
 jvs.stop()
+cv2.destroyAllWindows()

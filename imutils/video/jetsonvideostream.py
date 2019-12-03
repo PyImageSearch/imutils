@@ -8,9 +8,11 @@ class JetsonVideoStream:
 		# the jetson board
 		# exposureTime - in miliseconds (0.013 to 683)
 		# gain ( 1.000000 to 10.625000)
-
+		captureWidth = 3264
+		captureHeight = 1848
 		width = outputResolution[0]
 		height = outputResolution[1]
+		
 		exposureTimeSting = ''
 		gainString = ''
 		if exposureTimeInMiliseconds is not None:
@@ -27,15 +29,21 @@ class JetsonVideoStream:
 		autoExposureLockString = ' aelock=true' if aelock is True else ''
 
 		whiteBalanceModeString = ' wbmode=0' # 0 - auto (?)
-                       
-		cameraString = ('nvarguscamerasrc{}{} ! '
+        
+
+
+		cameraString =	('nvarguscamerasrc ! '
                			'video/x-raw(memory:NVMM), '
-               			'width=(int)3820, height=(int)1848, '
-               			'format=(string)NV12, framerate=(fraction){}/1 ! '
-               			'nvvidconv flip-method=(int){}  ! '
-               			'video/x-raw, width=(int){}, height=(int){}, '
+               			'width=(int)%d, height=(int)%d, '
+               			'format=(string)NV12, framerate=(fraction)%d/1 ! '
+               			'nvvidconv flip-method=%d  ! '
+               			'video/x-raw, width=(int)%d, height=(int)%d, '
                			'format=(string)BGRx ! '
-               			'videoconvert ! video/x-raw, format=BGR ! appsink').format(gainString, exposureTimeSting, frameRate, flipMethod, width, height)
+               			'videoconvert ! video/x-raw, format=(string)BGR ! appsink' % (captureWidth, captureHeight, frameRate, flipMethod, width, height) )
+		
+		
+		print (cameraString)
+
 		# Original string from pull request:
 		# cameraString = ('nvcamerasrc ! '
 		# 						'video/x-raw(memory:NVMM), '
@@ -70,7 +78,7 @@ class JetsonVideoStream:
 		while True:
 			# if the thread indicator variable is set, stop the thread
 			if self.stopped:
-				# self.stream.release() - TODO: only if it is necessary to release after stopping, can prevent resource blocking
+				self.stream.release() # TODO: only if it is necessary to release after stopping, can prevent resource blocking
 				return
 
 			# otherwise, read the next frame from the stream
