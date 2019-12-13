@@ -14,13 +14,13 @@ class JetsonVideoStream:
 		width = outputResolution[0]
 		height = outputResolution[1]
 		
-		exposureTimeInMiliseconds=2.56
 		exposureTimeString = ''
+		gainString = ''
+
 		if exposureTimeInMiliseconds is not None:
 			toNanoseconds = int(exposureTimeInMiliseconds * 1000000)
 			exposureTimeString = 'exposuretimerange="%d %d" ' % (toNanoseconds, toNanoseconds)
 
-		gain = 1.5
 		gainString = ''
 		if gain is not None:
 			gainString = 'gainrange="%.3f %.3f" ' % (gain, gain)
@@ -35,8 +35,6 @@ class JetsonVideoStream:
 
 		whiteBalanceModeString = 'wbmode=%d ' % whiteBalanceMode if whiteBalanceMode is not 0 else ''  # 0 - auto (?)
         
-
-
 		cameraString =	('nvarguscamerasrc %s%s%s! '
                			'video/x-raw(memory:NVMM), '
                			'width=(int)%d, height=(int)%d, '
@@ -47,7 +45,6 @@ class JetsonVideoStream:
                			'videoconvert ! video/x-raw, format=(string)BGR ! appsink ' # OR format=(string)I420
 						'wait-on-eos=false drop=true max-buffers=1 -e -vvv' % (whiteBalanceModeString, gainString, exposureTimeString,
 																			   captureWidth, captureHeight, frameRate, flipMethod, width, height) )
-		
 		
 		print (cameraString)
 
