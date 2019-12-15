@@ -13,6 +13,7 @@ from imutils.video import FPS
 import argparse
 import imutils
 import cv2
+import time
 
 # construct the argument parse and parse the arguments
 ap = argparse.ArgumentParser()
@@ -26,7 +27,10 @@ args = vars(ap.parse_args())
 # created a *threaded *video stream, allow the camera senor to warmup,
 # and start the FPS counter
 print("[INFO] sampling THREADED frames from webcam...")
-jvs = JetsonVideoStream().start()
+
+frameResolution = (960, 460)
+jvs = JetsonVideoStream(outputResolution=frameResolution)
+jvs.start()
 fps = FPS().start()
 
 # loop over some frames...this time using the threaded stream
@@ -34,7 +38,7 @@ while fps._numFrames < args["num_frames"]:
 	# grab the frame from the threaded video stream and resize it
 
 	frame = jvs.read()
-	frame = imutils.resize(frame, width=960//2)
+	# frame = imutils.resize(frame, width=960//2)
 
 	# check to see if the frame should be displayed to our screen
 	if args["display"] > 0:
@@ -52,3 +56,6 @@ print("[INFO] approx. FPS: {:.2f}".format(fps.fps()))
 # do a bit of cleanup
 jvs.stop()
 cv2.destroyAllWindows()
+
+time.sleep(1.0)
+exit()
