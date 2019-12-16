@@ -2,6 +2,13 @@
 from threading import Thread
 import cv2
 
+
+
+
+# Raspberry Pi Camera V2:
+# Full resolution: (3280, 2646), FOV: 62.2 deg H, 48.8 deg V
+# GStreamer supported full resolution: (3264, 2464), 21 FPS, FOV: 62 deg H, 48.8 deg V
+# Preferred resolution: (3264,1848), 28FPS, FOV: 62 deg H, 37 deg V
 class JetsonVideoStream:
 	def __init__(self, captureResolution=(3264,1848), outputResolution=(960, 460), frameRate=28, flipMethod=0, 
 						exposureTimeInMiliseconds=None, gain=None, digitalGain=None, whiteBalanceMode=1,
