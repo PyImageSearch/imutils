@@ -32,4 +32,8 @@ def base64_encode_array(a):
 
 def base64_decode_array(a, dtype):
 	# decode and return the array
-	return np.frombuffer(base64.decodestring(a), dtype=dtype)
+        # decodestring was deprecated and removed in Python 3.9
+        if sys.version_info.major == 3:
+            return np.frombuffer(base64.decodebytes(a), dtype=dtype)
+        else:
+            return np.frombuffer(base64.decodestring(a), dtype=dtype)
