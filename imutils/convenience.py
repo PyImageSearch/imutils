@@ -22,7 +22,7 @@ def translate(image, x, y):
     # return the translated image
     return shifted
 
-def rotate(image, angle, center=None, scale=1.0):
+def rotate(image, angle, center=None, scale=1.0, borderValue=0):
     # grab the dimensions of the image
     (h, w) = image.shape[:2]
 
@@ -33,12 +33,12 @@ def rotate(image, angle, center=None, scale=1.0):
 
     # perform the rotation
     M = cv2.getRotationMatrix2D(center, angle, scale)
-    rotated = cv2.warpAffine(image, M, (w, h))
+    rotated = cv2.warpAffine(image, M, (w, h), borderValue=borderValue)
 
     # return the rotated image
     return rotated
 
-def rotate_bound(image, angle):
+def rotate_bound(image, angle, borderValue=0):
     # grab the dimensions of the image and then determine the
     # center
     (h, w) = image.shape[:2]
@@ -51,7 +51,7 @@ def rotate_bound(image, angle):
     cos = np.abs(M[0, 0])
     sin = np.abs(M[0, 1])
 
-    # compute the new bounding dimensions of the image
+    # compute the new bounding dimensions of the i~mage
     nW = int((h * sin) + (w * cos))
     nH = int((h * cos) + (w * sin))
 
@@ -60,7 +60,7 @@ def rotate_bound(image, angle):
     M[1, 2] += (nH / 2) - cY
 
     # perform the actual rotation and return the image
-    return cv2.warpAffine(image, M, (nW, nH))
+    return cv2.warpAffine(image, M, (nW, nH), borderValue=borderValue)
 
 def resize(image, width=None, height=None, inter=cv2.INTER_AREA):
     # initialize the dimensions of the image to be resized and
