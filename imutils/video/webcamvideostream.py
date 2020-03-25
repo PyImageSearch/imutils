@@ -8,7 +8,7 @@ class WebcamVideoStream:
 		# initialize the video camera stream and read the first frame
 		# from the stream
 		self.stream = cap
-		if cap is not None:
+		if cap is None:
 			self.stream = cv2.VideoCapture(src)
 			self.stream.set(3, int(resolution[0]))  # cv2.CAP_PROP_FRAME_WIDTH
 			self.stream.set(4, int(resolution[1]))  # cv2.CAP_PROP_FRAME_HEIGHT
