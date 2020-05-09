@@ -151,17 +151,82 @@ def auto_canny(image, sigma=0.33):
     # return the edged image
     return edged
 
-def is_cv2():
-    # if we are using OpenCV 2, then our cv2.__version__ will start
-    # with '2.'
-    return check_opencv_version("2.")
+def grab_contours(cnts):
+    # if the length the contours tuple returned by cv2.findContours
+    # is '2' then we are using either OpenCV v2.4, v4-beta, or
+    # v4-official
+    if len(cnts) == 2:
+        cnts = cnts[0]
 
-def is_cv3():
-    # if we are using OpenCV 3.X, then our cv2.__version__ will start
-    # with '3.'
-    return check_opencv_version("3.")
+    # if the length of the contours tuple is '3' then we are using
+    # either OpenCV v3, v4-pre, or v4-alpha
+    elif len(cnts) == 3:
+        cnts = cnts[1]
+
+    # otherwise OpenCV has changed their cv2.findContours return
+    # signature yet again and I have no idea WTH is going on
+    else:
+        raise Exception(("Contours tuple must have length 2 or 3, "
+            "otherwise OpenCV changed their cv2.findContours return "
+            "signature yet again. Refer to OpenCV's documentation "
+            "in that case"))
+
+    # return the actual contours array
+    return cnts
+
+def is_cv2(or_better=False):
+    # grab the OpenCV major version number
+    major = get_opencv_major_version()
+
+    # check to see if we are using *at least* OpenCV 2
+    if or_better:
+        return major >= 2
+
+    # otherwise we want to check for *strictly* OpenCV 2
+    return major == 2
+
+def is_cv3(or_better=False):
+    # grab the OpenCV major version number
+    major = get_opencv_major_version()
+
+    # check to see if we are using *at least* OpenCV 3
+    if or_better:
+        return major >= 3
+
+    # otherwise we want to check for *strictly* OpenCV 3
+    return major == 3
+
+def is_cv4(or_better=False):
+    # grab the OpenCV major version number
+    major = get_opencv_major_version()
+
+    # check to see if we are using *at least* OpenCV 4
+    if or_better:
+        return major >= 4
+
+    # otherwise we want to check for *strictly* OpenCV 4
+    return major == 4
+
+def get_opencv_major_version(lib=None):
+    # if the supplied library is None, import OpenCV
+    if lib is None:
+        import cv2 as lib
+
+    # return the major version number
+    return int(lib.__version__.split(".")[0])
 
 def check_opencv_version(major, lib=None):
+    # this function may be removed in a future release as we now
+    # use the get_opencv_major_function to obtain the current OpenCV
+    # version and then perform the actual version check *within* the
+    # respective function
+    import warnings
+    message = """
+        The check_opencv_version function is deprecated and may be
+        removed in a future release. Use at your own risk.
+    """
+    warnings.warn(message, DeprecationWarning, stacklevel=2)
+    
     # if the supplied library is None, import OpenCV
     if lib is None:
         import cv2 as lib
@@ -236,3 +301,19 @@ def build_montages(image_list, image_shape, montage_shape):
     return image_montages
 
 
+def adjust_brightness_contrast(image, brightness=0., contrast=0.):
+    """
+    Adjust the brightness and/or contrast of an image
+
+    :param image: OpenCV BGR image
+    :param contrast: Float, contrast adjustment with 0 meaning no change
+    :param brightness: Float, brightness adjustment with 0 meaning no change
+    """
+    beta = 0
+    # See the OpenCV docs for more info on the `beta` parameter to addWeighted
+    # https://docs.opencv.org/3.4.2/d2/de8/group__core__array.html#gafafb2513349db3bcff51f54ee5592a19
+    return cv2.addWeighted(image,
+                           1 + float(contrast) / 100.,
+                           image,
+                           beta,
+                           float(brightness))

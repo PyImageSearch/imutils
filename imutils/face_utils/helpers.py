@@ -9,6 +9,7 @@ import cv2
 #For dlib’s 68-point facial landmark detector:
 FACIAL_LANDMARKS_68_IDXS = OrderedDict([
 	("mouth", (48, 68)),
+	("inner_mouth", (60, 68)),
 	("right_eyebrow", (17, 22)),
 	("left_eyebrow", (22, 27)),
 	("right_eye", (36, 42)),
@@ -23,6 +24,10 @@ FACIAL_LANDMARKS_5_IDXS = OrderedDict([
 	("left_eye", (0, 1)),
 	("nose", (4))
 ])
+
+# in order to support legacy code, we'll default the indexes to the
+# 68-point model
+FACIAL_LANDMARKS_IDXS = FACIAL_LANDMARKS_68_IDXS
 
 def rect_to_bb(rect):
 	# take a bounding predicted by dlib and convert it
