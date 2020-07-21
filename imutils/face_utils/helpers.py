@@ -80,7 +80,7 @@ def visualize_facial_landmarks(image, shape, colors=None, alpha=0.75):
 			for l in range(1, len(pts)):
 				ptA = tuple(pts[l - 1])
 				ptB = tuple(pts[l])
-				cv2.line(overlay, ptA, ptB, colors[i], 2)
+				cv2.line(overlay, ptA, ptB, colors[i-1], 2)
 
 		# otherwise, compute the convex hull of the facial
 		# landmark coordinates points and display it
