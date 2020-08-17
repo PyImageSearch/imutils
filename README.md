@@ -163,7 +163,7 @@ See the contents of `demos/perspective_transform.py`
 <img src="docs/images/perspective_transform.png?raw=true" alt="Matplotlib example" style="max-width: 500px;">
 
 ## Sorting Contours
-The contours returned from `cv2.findContours` are unsorted. By using the `contours` module the the `sort_contours` function we can sort a list of contours from left-to-right, right-to-left, top-to-bottom, and bottom-to-top, respectively.
+The contours returned from `cv2.findContours` are unsorted. By using the `sort_contours` function from the `contours` module, we can sort a list of contours from left-to-right, right-to-left, top-to-bottom, and bottom-to-top, respectively.
 
 #### Example:
 See the contents of `demos/sorting_contours.py`
