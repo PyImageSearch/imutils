@@ -114,7 +114,7 @@ plt.show()</pre>
 <img src="docs/images/matplotlib.png?raw=true" alt="Matplotlib example" style="max-width: 500px;">
 
 ## URL to Image
-This the `url_to_image` function accepts a single parameter: the `url` of the image we want to download and convert to a NumPy array in OpenCV format. This function performs the download in-memory. The `url_to_image` function has been detailed [here](http://www.pyimagesearch.com/2015/03/02/convert-url-to-image-with-python-and-opencv/) on the PyImageSearch blog.
+This `url_to_image` function accepts a single parameter: the `url` of the image we want to download and convert to a NumPy array in OpenCV format. This function performs the download in-memory. The `url_to_image` function has been detailed [here](http://www.pyimagesearch.com/2015/03/02/convert-url-to-image-with-python-and-opencv/) on the PyImageSearch blog.
 
 #### Example:
 <pre>url = "http://pyimagesearch.com/static/pyimagesearch_logo_github.png"
