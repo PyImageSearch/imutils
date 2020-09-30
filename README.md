@@ -1,6 +1,8 @@
 # imutils
 A series of convenience functions to make basic image processing functions such as translation, rotation, resizing, skeletonization, and displaying Matplotlib images easier with OpenCV and ***both*** Python 2.7 and Python 3.
 
+Python is a high-level, interpreted, interactive and object-oriented scripting language. Python is designed to be highly readable. Python is Object-Oriented − Python supports Object-Oriented style or technique of programming that encapsulates code within objects
+
 For more information, along with a detailed code review check out the following posts on the [PyImageSearch.com](http://www.pyimagesearch.com) blog:
 
 - [http://www.pyimagesearch.com/2015/02/02/just-open-sourced-personal-imutils-package-series-opencv-convenience-functions/](http://www.pyimagesearch.com/2015/02/02/just-open-sourced-personal-imutils-package-series-opencv-convenience-functions/)
