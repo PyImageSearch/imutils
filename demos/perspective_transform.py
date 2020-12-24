@@ -20,7 +20,7 @@ pts = np.array([(73, 239), (356, 117), (475, 265), (187, 443)])
 for (x, y) in pts:
     cv2.circle(clone, (x, y), 5, (0, 255, 0), -1)
 
-# apply the four point tranform to obtain a "birds eye view" of
+# apply the four point transform to obtain a "birds eye view" of
 # the notecard
 warped = perspective.four_point_transform(notecard, pts)
 
