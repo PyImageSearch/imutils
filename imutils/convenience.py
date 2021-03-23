@@ -22,7 +22,7 @@ def translate(image, x, y):
     # return the translated image
     return shifted
 
-def rotate(image, angle, center=None, scale=1.0):
+def rotate(image, angle, center=None, scale=1.0, border_value=0):
     # grab the dimensions of the image
     (h, w) = image.shape[:2]
 
@@ -33,7 +33,7 @@ def rotate(image, angle, center=None, scale=1.0):
 
     # perform the rotation
     M = cv2.getRotationMatrix2D(center, angle, scale)
-    rotated = cv2.warpAffine(image, M, (w, h))
+    rotated = cv2.warpAffine(image, M, (w, h), borderValue=border_value)
 
     # return the rotated image
     return rotated
