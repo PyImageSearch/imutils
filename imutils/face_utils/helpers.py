@@ -20,9 +20,9 @@ FACIAL_LANDMARKS_68_IDXS = OrderedDict([
 
 #For dlib’s 5-point facial landmark detector:
 FACIAL_LANDMARKS_5_IDXS = OrderedDict([
-	("right_eye", (2, 3)),
-	("left_eye", (0, 1)),
-	("nose", (4))
+	("right_eye", (2, 4)),
+	("left_eye", (0, 2)),
+	("nose", 4)
 ])
 
 # in order to support legacy code, we'll default the indexes to the
