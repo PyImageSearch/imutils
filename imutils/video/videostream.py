@@ -37,3 +37,11 @@ class VideoStream:
 	def stop(self):
 		# stop the thread and release any resources
 		self.stream.stop()
+
+	def set_video_setting(self, setting_to_change, set_value):
+		if not usePiCamera:
+			self.stream.set_video_setting(setting_to_change, set_value)
+
+	def get_video_setting(self, setting_to_check):
+		if not usePiCamera:
+			return self.stream.get(setting_to_check)

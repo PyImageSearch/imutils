@@ -40,3 +40,9 @@ class WebcamVideoStream:
 	def stop(self):
 		# indicate that the thread should be stopped
 		self.stopped = True
+
+	def set_video_setting(self, setting_to_change, set_value):
+		self.stream.set(setting_to_change, set_value)
+
+	def get_video_setting(self, setting_to_check):
+		return self.stream.get(setting_to_check)
