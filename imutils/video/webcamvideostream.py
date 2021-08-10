@@ -41,8 +41,12 @@ class WebcamVideoStream:
 		# indicate that the thread should be stopped
 		self.stopped = True
 
-	def set_video_setting(self, setting_to_change, set_value):
-		self.stream.set(setting_to_change, set_value)
+	# property uses the OpenCV VideoCaptureProperties enum
+	# e.g. setVideoSetting(cv2.CAP_PROP_EXPOSURE, 30.0)
+	def set(self, property, value):
+		self.stream.set(property, float(value))
 
-	def get_video_setting(self, setting_to_check):
-		return self.stream.get(setting_to_check)
+	# property uses the OpenCV VideoCaptureProperties enum
+	# e.g. getVideoSetting(cv2.CAP_PROP_EXPOSURE)
+	def get(self, property):
+		return self.stream.get(property)

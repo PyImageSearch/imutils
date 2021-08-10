@@ -38,10 +38,14 @@ class VideoStream:
 		# stop the thread and release any resources
 		self.stream.stop()
 
-	def set_video_setting(self, setting_to_change, set_value):
+	# property uses the OpenCV VideoCaptureProperties enum
+	# e.g. setVideoSetting(cv2.CAP_PROP_EXPOSURE, 30.0)
+	def set(self, property, value):
 		if not usePiCamera:
-			self.stream.set_video_setting(setting_to_change, set_value)
+			self.stream.set(property, value)
 
-	def get_video_setting(self, setting_to_check):
+	# property uses the OpenCV VideoCaptureProperties enum
+	# e.g. getVideoSetting(cv2.CAP_PROP_EXPOSURE)
+	def get(self, property):
 		if not usePiCamera:
-			return self.stream.get(setting_to_check)
+			return self.stream.get(property)
