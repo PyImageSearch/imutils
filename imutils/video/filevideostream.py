@@ -50,6 +50,7 @@ class FileVideoStream:
 				# reached the end of the video file
 				if not grabbed:
 					self.stopped = True
+					break
 					
 				# if there are transforms to be done, might as well
 				# do them on producer thread before handing back to
