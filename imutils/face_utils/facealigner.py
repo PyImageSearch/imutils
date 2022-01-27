@@ -65,7 +65,7 @@ class FaceAligner:
 			(leftEyeCenter[1] + rightEyeCenter[1]) // 2)
 
 		# grab the rotation matrix for rotating and scaling the face
-		M = cv2.getRotationMatrix2D(eyesCenter, angle, scale)
+		M = cv2.getRotationMatrix2D([int(x) for x in eyesCenter], angle, scale)
 
 		# update the translation component of the matrix
 		tX = self.desiredFaceWidth * 0.5
