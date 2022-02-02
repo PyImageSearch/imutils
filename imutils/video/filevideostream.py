@@ -14,18 +14,21 @@ else:
 
 
 class FileVideoStream:
-	def __init__(self, path, transform=None, queue_size=128):
+	def __init__(self, path, transform=None, queue_size=128, name="FileVideoStream"):
 		# initialize the file video stream along with the boolean
 		# used to indicate if the thread should be stopped or not
 		self.stream = cv2.VideoCapture(path)
 		self.stopped = False
 		self.transform = transform
 
+		# initialize the thread name
+		self.name = name
+
 		# initialize the queue used to store frames read from
 		# the video file
 		self.Q = Queue(maxsize=queue_size)
 		# intialize thread
-		self.thread = Thread(target=self.update, args=())
+		self.thread = Thread(target=self.update, name=self.name, args=())
 		self.thread.daemon = True
 
 	def start(self):
