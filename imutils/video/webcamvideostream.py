@@ -2,8 +2,8 @@
 from threading import Thread
 import cv2
 
-class WebcamVideoStream:
-	def __init__(self, src=0, name="WebcamVideoStream"):
+class WebcamVideoStream(Thread):
+	def __init__(self, src=0, name="WebcamVideoStream", *args, **kwargs):
 		# initialize the video camera stream and read the first frame
 		# from the stream
 		self.stream = cv2.VideoCapture(src)
@@ -15,15 +15,11 @@ class WebcamVideoStream:
 		# initialize the variable used to indicate if the thread should
 		# be stopped
 		self.stopped = False
+		
+		super().__init__(*args, **kwargs)
+        	self.daemon = True
 
-	def start(self):
-		# start the thread to read frames from the video stream
-		t = Thread(target=self.update, name=self.name, args=())
-		t.daemon = True
-		t.start()
-		return self
-
-	def update(self):
+	def run(self):
 		# keep looping infinitely until the thread is stopped
 		while True:
 			# if the thread indicator variable is set, stop the thread
