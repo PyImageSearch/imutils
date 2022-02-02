@@ -72,9 +72,15 @@ def resize(image, width=None, height=None, inter=cv2.INTER_AREA):
     # original image
     if width is None and height is None:
         return image
+    
+    # if the width and height are all not None
+    if width and height:
+        # this is used for the target with fixed resolution ratio
+        # like catch a phone screen from a photo
+        dim = (width, height)
 
     # check to see if the width is None
-    if width is None:
+    elif width is None:
         # calculate the ratio of the height and construct the
         # dimensions
         r = height / float(h)
