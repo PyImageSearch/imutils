@@ -21,14 +21,14 @@ def non_max_suppression(boxes, probs=None, overlapThresh=0.3):
 	y2 = boxes[:, 3]
 
 	# compute the area of the bounding boxes and grab the indexes to sort
-	# (in the case that no probabilities are provided, simply sort on the
-	# bottom-left y-coordinate)
 	area = (x2 - x1 + 1) * (y2 - y1 + 1)
-	idxs = y2
 
-	# if probabilities are provided, sort on them instead
+	# if probabilities are provided, use them as indexes for sorting else 
+	# simply use the bottom-left y-coordinate
 	if probs is not None:
 		idxs = probs
+	else:
+		idxs = y2
 
 	# sort the indexes
 	idxs = np.argsort(idxs)
