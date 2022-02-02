@@ -42,3 +42,27 @@ def label_contour(image, c, i, color=(0, 255, 0), thickness=2):
 
     # return the image with the contour number drawn on it
     return image
+
+def extent(contour):
+    # return the extent of a contour
+    # extent = contour area / bounding box area
+    area = cv2.contourArea(contour)
+    (x, y, w, h) = cv2.boundingRect(contour)
+    extent = area / float(w * h)
+    return extent
+
+def solidity(contour):
+    # returns the solidarity of a contour
+    # solidarity = contour area / convex hull area
+    area = cv2.contourArea(c)
+    hull = cv2.convexHull(contour)
+    hullArea = cv2.contourArea(hull)
+    solidity = area / float(hullArea)
+    return solidity
+
+def get_COM(contour):
+    # returns the center of mass (COM) of the contour region
+    M = cv2.moments(c)
+    cX = int(M["m10"] / M["m00"])
+    cY = int(M["m01"] / M["m00"])
+    return cX, cY
