@@ -30,4 +30,5 @@ class FPS:
 
 	def fps(self):
 		# compute the (approximate) frames per second
+		self._end = datetime.datetime.now()
 		return self._numFrames / self.elapsed()
