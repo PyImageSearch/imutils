@@ -22,6 +22,7 @@ class FPS:
 		# increment the total number of frames examined during the
 		# start and end intervals
 		self._numFrames += 1
+		self._end = datetime.datetime.now()
 
 	def elapsed(self):
 		# return the total number of seconds between the start and
