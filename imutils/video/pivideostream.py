@@ -3,6 +3,7 @@ from picamera.array import PiRGBArray
 from picamera import PiCamera
 from threading import Thread
 import cv2
+import time
 
 class PiVideoStream:
 	def __init__(self, resolution=(320, 240), framerate=32, **kwargs):
@@ -22,9 +23,10 @@ class PiVideoStream:
 		self.stream = self.camera.capture_continuous(self.rawCapture,
 			format="bgr", use_video_port=True)
 
-		# initialize the frame and the variable used to indicate
-		# if the thread should be stopped
+		# initialize the frame and the checker that checks is it updated
+		# and the variable used to indicate if the thread should be stopped
 		self.frame = None
+		self.is_updated = False
 		self.stopped = False
 
 	def start(self):
@@ -38,9 +40,10 @@ class PiVideoStream:
 		# keep looping infinitely until the thread is stopped
 		for f in self.stream:
 			# grab the frame from the stream and clear the stream in
-			# preparation for the next frame
+			# preparation for the next frame and update the update checker
 			self.frame = f.array
 			self.rawCapture.truncate(0)
+			self.is_updated = True
 
 			# if the thread indicator variable is set, stop the thread
 			# and resource camera resources
@@ -51,9 +54,17 @@ class PiVideoStream:
 				return
 
 	def read(self):
-		# return the frame most recently read
+		# block until there is newly updated frame
+		while not self.is_updated:
+			if self.stopped:
+				return None
+			time.sleep(0.001)
+			continue
+		self.is_updated = False
+		# return the newly updated frame
 		return self.frame
 
 	def stop(self):
 		# indicate that the thread should be stopped
 		self.stopped = True
+
