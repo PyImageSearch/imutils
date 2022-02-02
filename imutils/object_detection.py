@@ -4,12 +4,11 @@ import numpy as np
 def non_max_suppression(boxes, probs=None, overlapThresh=0.3):
 	# if there are no boxes, return an empty list
 	if len(boxes) == 0:
-		return []
+		return np.array([], dtype=np.int)
 
 	# if the bounding boxes are integers, convert them to floats -- this
 	# is important since we'll be doing a bunch of divisions
-	if boxes.dtype.kind == "i":
-		boxes = boxes.astype("float")
+	boxes = np.asarray(boxes, dtype=np.float)
 
 	# initialize the list of picked indexes
 	pick = []
@@ -24,11 +23,12 @@ def non_max_suppression(boxes, probs=None, overlapThresh=0.3):
 	# (in the case that no probabilities are provided, simply sort on the
 	# bottom-left y-coordinate)
 	area = (x2 - x1 + 1) * (y2 - y1 + 1)
-	idxs = y2
 
 	# if probabilities are provided, sort on them instead
 	if probs is not None:
 		idxs = probs
+	else:
+		idxs = y2
 
 	# sort the indexes
 	idxs = np.argsort(idxs)
@@ -62,4 +62,4 @@ def non_max_suppression(boxes, probs=None, overlapThresh=0.3):
 			np.where(overlap > overlapThresh)[0])))
 
 	# return only the bounding boxes that were picked
-	return boxes[pick].astype("int")
+	return boxes[pick].astype(np.int)
