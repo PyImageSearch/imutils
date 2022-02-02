@@ -21,3 +21,5 @@ from .convenience import check_opencv_version
 from .convenience import build_montages
 from .convenience import adjust_brightness_contrast
 from .meta import find_function
+from .color_extraction import extractDominantColor
+from .color_extraction import plotColorBar
