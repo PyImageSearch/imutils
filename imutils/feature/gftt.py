@@ -13,9 +13,10 @@ class GFTT:
         self.useHarrisDetector = useHarrisDetector
         self.k = k
 
-    def detect(self, img):
+    def detect(self, img, mask=None):
+        mask = self.mask if mask is None else mask
         cnrs = cv2.goodFeaturesToTrack(img, self.maxCorners, self.qualityLevel, self.minDistance,
-                                       mask=self.mask, blockSize=self.blockSize,
+                                       mask=mask, blockSize=self.blockSize,
                                        useHarrisDetector=self.useHarrisDetector, k=self.k)
 
         return corners_to_keypoints(cnrs)
