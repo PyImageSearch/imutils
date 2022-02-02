@@ -12,6 +12,8 @@ class FPS:
 	def start(self):
 		# start the timer
 		self._start = datetime.datetime.now()
+		# Reset frame to zero incase we are 'restarting' the counter
+		self._numFrames = 0
 		return self
 
 	def stop(self):
