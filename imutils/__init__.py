@@ -8,6 +8,8 @@ __version__ = "0.5.4"
 from .convenience import translate
 from .convenience import rotate
 from .convenience import rotate_bound
+from .convenience import shear
+from .convenience import shear_bound
 from .convenience import resize
 from .convenience import skeletonize
 from .convenience import opencv2matplotlib
