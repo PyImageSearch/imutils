@@ -62,6 +62,67 @@ def rotate_bound(image, angle):
     # perform the actual rotation and return the image
     return cv2.warpAffine(image, M, (nW, nH))
 
+def shear(image, angle_x=0, angle_y=0):
+    # grab the dimensions of the image
+    (h, w) = image.shape[:2]
+    
+    center_point = np.array([w/2, h/2, 1]).reshape(3, 1)
+
+    S = np.eye(3)
+    S[0, 1] = np.tan(angle_x * np.pi / 180)  # x shear (deg)
+    S[1, 0] = np.tan(-angle_y * np.pi / 180)  # y shear (deg)
+
+    warped_center_point = S @ center_point
+    delta_xy = center_point - warped_center_point
+    
+    # Translation
+    T = np.eye(3)
+    T[0, 2] = delta_xy[0]  # x translation (pixels)
+    T[1, 2] = delta_xy[1]  # y translation (pixels)
+    
+    M = T @ S
+    
+    # perform the shear
+    sheared = cv2.warpAffine(image, M[:2], (w, h))
+
+    # return the sheared image
+    return sheared
+
+def shear_bound(image, angle_x=0, angle_y=0):
+    # grab the dimensions of the image
+    (h, w) = image.shape[:2]
+
+    top_left_point = np.array([0, 0, 1]).reshape(3, 1)
+    top_right_point = np.array([w, 0, 1]).reshape(3, 1)
+    bot_left_point = np.array([0, h, 1]).reshape(3, 1)
+    bot_right_point = np.array([w, h, 1]).reshape(3, 1)
+    
+    border_points = np.concatenate([top_left_point, top_right_point, bot_left_point, bot_right_point], axis=1)
+    
+    S = np.eye(3)
+    S[0, 1] = np.tan(angle_x * np.pi / 180)  # x shear (deg)
+    S[1, 0] = np.tan(-angle_y * np.pi / 180)  # y shear (deg)
+
+    warped_border_points = S @ border_points
+    warped_top_left_point = [np.min(warped_border_points[0]), np.min(warped_border_points[1])]
+    warped_bot_right_point = [np.max(warped_border_points[0]), np.max(warped_border_points[1])]
+    
+    warped_img_w = int(warped_bot_right_point[0] - warped_top_left_point[0])
+    warped_img_h = int(warped_bot_right_point[1] - warped_top_left_point[1])
+
+    # Translation
+    T = np.eye(3)
+    T[0, 2] = -warped_top_left_point[0]  # x translation (pixels)
+    T[1, 2] = -warped_top_left_point[1]  # y translation (pixels)
+    
+    M = T @ S
+    
+    # perform the shear
+    sheared = cv2.warpAffine(image, M[:2], (warped_img_w, warped_img_h))
+
+    # return the sheared image
+    return sheared
+
 def resize(image, width=None, height=None, inter=cv2.INTER_AREA):
     # initialize the dimensions of the image to be resized and
     # grab the image size
