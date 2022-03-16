@@ -3,8 +3,18 @@
 
 # import the necessary packages
 from scipy.spatial import distance as dist
+from functools import reduce
 import numpy as np
+import operator
+import math
 import cv2
+
+def blhsing_order_points(pts):
+    # https://stackoverflow.com/questions/51074984/sorting-according-to-clockwise-point-coordinates#answer-51075698
+    pts = pts.tolist()
+    center = tuple(map(operator.truediv, reduce(lambda x, y: map(operator.add, x, y), pts), [len(pts)] * 2))
+    result = sorted(pts, key=lambda point: (-135 - math.degrees(math.atan2(*tuple(map(operator.sub, point, center))))) % 360)
+    return np.array(result, dtype="float32")
 
 def order_points(pts):
     # sort the points based on their x-coordinates
