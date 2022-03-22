@@ -1,4 +1,4 @@
-from distutils.core import setup
+from setuptools import setup
 
 setup(
     name='linus_imutils',
@@ -11,4 +11,5 @@ setup(
     keywords=['computer vision', 'image processing', 'opencv', 'matplotlib'],
     classifiers=[],
     scripts=['bin/range-detector'],
+    install_requires=['numpy', 'opencv-python', 'scipy'],
 )
