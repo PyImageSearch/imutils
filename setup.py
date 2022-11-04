@@ -1,4 +1,10 @@
-from distutils.core import setup
+from setuptools import setup
+import sys
+
+if sys.version_info.major == 2:
+    open_cv = 'opencv-python==4.2.0.32'     # Last supported version for Python 2.7
+else:
+    open_cv = 'opencv-python'               # Latest available version
 
 setup(
     name='imutils',
@@ -12,4 +18,10 @@ setup(
     keywords=['computer vision', 'image processing', 'opencv', 'matplotlib'],
     classifiers=[],
     scripts=['bin/range-detector'],
+    install_requires=[
+        'numpy', 
+        'scipy', 
+        'matplotlib', 
+        open_cv
+    ]
 )

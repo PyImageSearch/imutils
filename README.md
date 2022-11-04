@@ -10,8 +10,6 @@ For more information, along with a detailed code review check out the following 
 - [http://www.pyimagesearch.com/2015/08/10/checking-your-opencv-version-using-python/](http://www.pyimagesearch.com/2015/08/10/checking-your-opencv-version-using-python/)
 
 ## Installation
-Provided you already have NumPy, SciPy, Matplotlib, and OpenCV already installed, the `imutils` package is completely `pip`-installable:
-
 <pre>$ pip install imutils</pre>
 
 ## Finding function OpenCV functions by name
@@ -127,17 +125,19 @@ cv2.waitKey(0)</pre>
 <img src="docs/images/url_to_image.png?raw=true" alt="Matplotlib example" style="max-width: 500px;">
 
 ## Checking OpenCV Versions
-OpenCV 3 has finally been released! But with the major release becomes backward compatibility issues (such as with the `cv2.findContours` and `cv2.normalize` functions). If you want your OpenCV 3 code to be backwards compatible with OpenCV 2.4.X, you'll need to take special care to check which version of OpenCV is currently being used and then take appropriate action. The `is_cv2()` and `is_cv3()` are simple functions that can be used to automatically determine the OpenCV version of the current environment.
+OpenCV 3 has finally been released! But with the major release becomes backward compatibility issues (such as with the `cv2.findContours` and `cv2.normalize` functions). If you want your OpenCV 3 code to be backwards compatible with OpenCV 2.4.X, you'll need to take special care to check which version of OpenCV is currently being used and then take appropriate action. The `is_cv2()`, `is_cv3()` and `is_cv4()` are simple functions that can be used to automatically determine the OpenCV version of the current environment.
 
 #### Example:
 <pre>print("Your OpenCV version: {}".format(cv2.__version__))
 print("Are you using OpenCV 2.X? {}".format(imutils.is_cv2()))
-print("Are you using OpenCV 3.X? {}".format(imutils.is_cv3()))</pre>
+print("Are you using OpenCV 3.X? {}".format(imutils.is_cv3()))
+print("Are you using OpenCV 4.X? {}".format(imutils.is_cv4()))</pre>
 
 #### Output:
 <pre>Your OpenCV version: 3.0.0
 Are you using OpenCV 2.X? False
-Are you using OpenCV 3.X? True</pre>
+Are you using OpenCV 3.X? True
+Are you using OpenCV 4.X? False</pre>
 
 ## Automatic Canny Edge Detection
 The Canny edge detector requires two parameters when performing hysteresis. However, tuning these two parameters to obtain an optimal edge map is non-trivial, especially when working with a dataset of images. Instead, we can use the `auto_canny` function which uses the median of the grayscale pixel intensities to derive the upper and lower thresholds. You can read more about the `auto_canny` function [here](http://www.pyimagesearch.com/2015/04/06/zero-parameter-automatic-canny-edge-detection-with-python-and-opencv/).
