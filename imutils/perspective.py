@@ -2,7 +2,6 @@
 # website:   http://www.pyimagesearch.com
 
 # import the necessary packages
-from scipy.spatial import distance as dist
 import numpy as np
 import cv2
 
