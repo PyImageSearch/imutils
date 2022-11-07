@@ -2,7 +2,6 @@
 # website:   http://www.pyimagesearch.com
 
 # import the necessary packages
-from scipy.spatial import distance as dist
 import numpy as np
 import cv2
 
@@ -26,7 +25,7 @@ def order_points(pts):
     # top-left and right-most points; by the Pythagorean
     # theorem, the point with the largest distance will be
     # our bottom-right point
-    D = dist.cdist(tl[np.newaxis], rightMost, "euclidean")[0]
+    D = np.linalg.norm(np.subtract(tl[np.newaxis], rightMost), axis=1)
     (br, tr) = rightMost[np.argsort(D)[::-1], :]
 
     # return the coordinates in top-left, top-right,
