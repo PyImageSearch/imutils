@@ -62,7 +62,20 @@ def rotate_bound(image, angle):
     # perform the actual rotation and return the image
     return cv2.warpAffine(image, M, (nW, nH))
 
-def resize(image, width=None, height=None, inter=cv2.INTER_AREA):
+def resize(image, width: int=None, height: int=None, inter=cv2.INTER_AREA):
+    """
+    Resizes an image while retaining its aspect ratio.
+
+    Args:
+        image: The image to resize
+        width (int, optional): The width of the resized image in pixels.
+        height (int, optional): The height of the resized image in pixels. Ignored if a width is given.
+        inter (int, optional): Interpolation mode. Defaults to cv2.INTER_AREA.
+
+    Returns:
+        the resized image.
+    """
+    
     # initialize the dimensions of the image to be resized and
     # grab the image size
     dim = None
