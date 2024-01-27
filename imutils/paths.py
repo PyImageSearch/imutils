@@ -1,7 +1,7 @@
 # import the necessary packages
 import os
 
-image_types = (".jpg", ".jpeg", ".png", ".bmp", ".tif", ".tiff")
+image_types = (".jpg", ".jpeg", ".png", ".bmp", ".tif", ".tiff", ".webp")
 
 
 def list_images(basePath, contains=None):
