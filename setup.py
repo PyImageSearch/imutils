@@ -10,6 +10,8 @@ setup(
     url='https://github.com/jrosebr1/imutils',
     download_url='https://github.com/jrosebr1/imutils/tarball/0.1',
     keywords=['computer vision', 'image processing', 'opencv', 'matplotlib'],
-    classifiers=[],
+    classifiers=[
+        'License :: OSI Approved :: MIT License',
+    ],
     scripts=['bin/range-detector'],
 )
