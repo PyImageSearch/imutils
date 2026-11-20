@@ -125,8 +125,11 @@ def skeletonize(image, size, structuring=cv2.MORPH_RECT):
 
 def opencv2matplotlib(image):
     # OpenCV represents images in BGR order; however, Matplotlib
-    # expects the image in RGB order, so simply convert from BGR
-    # to RGB and return
+    # expects the image in RGB order. Reorder color channels with
+    # NumPy to preserve dtypes unsupported by cvtColor, such as float64.
+    if image.ndim == 3 and image.shape[2] in (3, 4):
+        return image[:, :, 2::-1].copy()
+
     return cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
 def url_to_image(url, readFlag=cv2.IMREAD_COLOR):
