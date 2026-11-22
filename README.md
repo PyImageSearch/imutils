@@ -189,3 +189,24 @@ for imagePath in paths.list_images("../demo_images"):
 ../demo_images/pyimagesearch_logo.jpg
 ../demo_images/shapes.png
 ../demo_images/workspace.jpg</pre>
+
+
+### Returning a perspective crop to the original image
+
+Use `inverse_four_point_transform` to paste an edited top-down crop back into
+the quadrilateral used by `four_point_transform`:
+
+```python
+from imutils.perspective import four_point_transform, inverse_four_point_transform
+
+warped = four_point_transform(image, points)
+# Edit warped here, keeping its dtype and channel layout.
+result = inverse_four_point_transform(image, warped, points)
+```
+
+The function returns a copy and leaves both input images unchanged. The edited
+crop can be resized (at least 2 by 2 pixels); its corners map to the ordered
+quadrilateral. A projected mask preserves pixels outside the crop, and black
+pixels are included. Grayscale and matching multichannel images are supported;
+alpha channels are copied as data, without blending. Interpolation means this
+operation is not a lossless inverse of the original sampling.

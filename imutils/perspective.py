@@ -70,3 +70,37 @@ def four_point_transform(image, pts):
 
     # return the warped image
     return warped
+
+def inverse_four_point_transform(image, warped, pts):
+    """Project an edited top-down image back onto four points in an image.
+
+    Return a copy of ``image`` with the quadrilateral replaced by ``warped``.
+    The images must have matching dtypes and channel layouts. The source may
+    have been resized after four_point_transform, but must be at least 2x2.
+    All source pixels, including black and alpha values, are copied without
+    alpha blending. Pixels outside the projected source remain unchanged.
+    """
+    if image.dtype != warped.dtype or image.shape[2:] != warped.shape[2:]:
+        raise ValueError("image and warped must have matching dtype and channels")
+    height, width = warped.shape[:2]
+    if height < 2 or width < 2:
+        raise ValueError("warped must be at least 2x2 pixels")
+
+    rect = order_points(np.asarray(pts, dtype="float32"))
+    source = np.array([[0, 0], [width - 1, 0],
+                       [width - 1, height - 1], [0, height - 1]],
+                      dtype="float32")
+    matrix = cv2.getPerspectiveTransform(source, rect)
+    size = (image.shape[1], image.shape[0])
+    projected = cv2.warpPerspective(warped, matrix, size,
+                                    borderMode=cv2.BORDER_REPLICATE)
+    # Rasterize the destination itself: warping a source mask would expand
+    # its half-pixel border when the edited crop has been resized.
+    mask = np.zeros(image.shape[:2], dtype="uint8")
+    cv2.fillConvexPoly(mask, np.round(rect * 256).astype("int32"), 1, shift=8)
+    # OpenCV squeezes a single-channel axis; restore the input's layout.
+    if warped.ndim == 3 and projected.ndim == 2:
+        projected = projected[:, :, np.newaxis]
+    result = image.copy()
+    result[mask != 0] = projected[mask != 0]
+    return result
