@@ -63,6 +63,15 @@ for angle in xrange(0, 360, 90):
 
 <img src="docs/images/rotation.png?raw=true" alt="Rotation example" style="max-width: 500px;">
 
+Both `rotate` and `rotate_bound` accept `border_value` to set the color of
+pixels outside the original image. Use a scalar for grayscale images or a
+BGR tuple for color images. The default is black (`0`).
+
+```python
+rotated = imutils.rotate(bridge, 45, border_value=(255, 255, 255))
+expanded = imutils.rotate_bound(bridge, 45, border_value=(255, 255, 255))
+```
+
 ## Resizing
 Resizing an image in OpenCV is accomplished by calling the `cv2.resize` function. However, special care needs to be taken to ensure that the aspect ratio is maintained.  This `resize` function of `imutils` maintains the aspect ratio and provides the keyword arguments `width` and `height` so the image can be resized to the intended width/height while (1) maintaining aspect ratio and (2) ensuring the dimensions of the image do not have to be explicitly computed by the developer.
 
