@@ -20,10 +20,10 @@ def setup_trackbars(range_filter):
     cv2.namedWindow("Trackbars", 0)
 
     for i in ["MIN", "MAX"]:
-        v = 0 if i == "MIN" else 255
-
         for j in range_filter:
-            cv2.createTrackbar("%s_%s" % (j, i), "Trackbars", v, 255, callback)
+            maximum = 179 if j == "H" else 255
+            v = 0 if i == "MIN" else maximum
+            cv2.createTrackbar("%s_%s" % (j, i), "Trackbars", v, maximum, callback)
 
 
 def get_arguments():
